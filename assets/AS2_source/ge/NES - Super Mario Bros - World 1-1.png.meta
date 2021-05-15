@@ -1,6 +1,6 @@
 {
   "ver": "2.3.3",
-  "uuid": "e5bf1b4c-00de-4a83-b1df-dedfa5f7f721",
+  "uuid": "c5cf8ac2-b824-4ac8-96c0-94f58410f1da",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "bilinear",
@@ -9,25 +9,25 @@
   "packable": true,
   "platformSettings": {},
   "subMetas": {
-    "Items": {
+    "NES - Super Mario Bros - World 1-1": {
       "ver": "1.0.4",
-      "uuid": "012d9561-bf07-4130-9fcd-cc69059c2143",
-      "rawTextureUuid": "e5bf1b4c-00de-4a83-b1df-dedfa5f7f721",
+      "uuid": "c3a49c80-c6fc-41d2-bc74-79e9ef811784",
+      "rawTextureUuid": "c5cf8ac2-b824-4ac8-96c0-94f58410f1da",
       "trimType": "auto",
       "trimThreshold": 1,
       "rotated": false,
-      "offsetX": -8,
+      "offsetX": 0,
       "offsetY": 0,
       "trimX": 0,
       "trimY": 0,
-      "width": 64,
-      "height": 48,
-      "rawWidth": 80,
-      "rawHeight": 48,
+      "width": 3376,
+      "height": 480,
+      "rawWidth": 3376,
+      "rawHeight": 480,
       "borderTop": 0,
-      "borderBottom": 32,
+      "borderBottom": 0,
       "borderLeft": 0,
-      "borderRight": 48,
+      "borderRight": 0,
       "subMetas": {}
     }
   }

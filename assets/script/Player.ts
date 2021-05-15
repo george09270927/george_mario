@@ -9,12 +9,17 @@ export default class Player extends cc.Component
     @property(cc.Node)
     private camera: cc.Node = null;
 
-  
+    private nowstate;
 
+    private marioState= cc.Enum({
+        Normal: 0,
+        Big: 1,
+        Fire: 2,
+    });
 
+    private anim: cc.Animation = null;
 
-
-
+    private animstate = null;
 
     private playerSpeed: number = 0;
 
@@ -30,10 +35,15 @@ export default class Player extends cc.Component
 
     private onGround: boolean = false;
 
+    start() {
+        this.anim = this.getComponent(cc.Animation);
+      }
+
     onLoad() {
         cc.director.getPhysicsManager().enabled = true;        	
         cc.systemEvent.on(cc.SystemEvent.EventType.KEY_DOWN, this.onKeyDown, this);
         cc.systemEvent.on(cc.SystemEvent.EventType.KEY_UP, this.onKeyUp, this);
+        this.nowstate = this.marioState.Normal;
     }
 
     onKeyDown(event) {
@@ -105,6 +115,18 @@ export default class Player extends cc.Component
     update(dt) {
         this.playerMovement(dt);
         this.camerafollow();
+        //cc.log(this.nowstate);
+        if(this.playerSpeed!=0&&this.animstate!="marioRun")
+        {
+            this.anim.stop();
+            this.animstate=this.anim.play("marioRun");
+            this.animstate="marioRun";
+        }
+        else if(this.playerSpeed==0&&this.animstate!="marioIdle"){
+            this.anim.stop();
+            this.anim.play("marioIdle");
+            this.animstate="marioIdle";
+        }
     }
 
     onBeginContact(contact, self, other) {
@@ -114,22 +136,18 @@ export default class Player extends cc.Component
         } else if(other.node.name == "coinbox") {
             cc.log("mario hits the coinbox");
             this.onGround = true;
+        } else if(other.node.name == "normalbrick") {
+            cc.log("mario hits the coinbox");
+            this.onGround = true;
+        } else if(other.node.name == "Big") {
+            cc.log("mario hits the Big");
+            this.nowstate=this.marioState.Big;
+            this.scheduleOnce(()=>{this.nowstate=this.marioState.Normal},15);
         } else if(other.node.name == "enemy") {
             cc.log("Rockman hits the enemy");
             this.isDead = true;
         }
     }
-
-
-
-
-
-
-
-
-
-
-
 
     camerafollow(){
         var scene = cc.director.getScene();
@@ -142,7 +160,6 @@ export default class Player extends cc.Component
                 this.camera.x = this.node.x-450;
             }
     }
-
 
 
 

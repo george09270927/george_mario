@@ -13,7 +13,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "coinbox",
+    "_name": "Player",
     "_objFlags": 0,
     "_parent": null,
     "_children": [],
@@ -48,8 +48,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 16,
-      "height": 16
+      "width": 14,
+      "height": 27
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -60,8 +60,8 @@
       "__type__": "TypedArray",
       "ctor": "Float64Array",
       "array": [
-        424.003,
-        87.994,
+        100,
+        100,
         0,
         0,
         0,
@@ -93,9 +93,9 @@
       "__id__": 1
     },
     "_enabled": true,
-    "_type": 0,
+    "_type": 2,
     "_allowSleep": true,
-    "_gravityScale": 1,
+    "_gravityScale": 5,
     "_linearDamping": 0,
     "_angularDamping": 0,
     "_linearVelocity": {
@@ -104,14 +104,14 @@
       "y": 0
     },
     "_angularVelocity": 0,
-    "_fixedRotation": false,
+    "_fixedRotation": true,
     "enabledContactListener": true,
     "bullet": false,
     "awakeOnLoad": true,
     "_id": ""
   },
   {
-    "__type__": "cc.PhysicsBoxCollider",
+    "__type__": "cc.PhysicsPolygonCollider",
     "_name": "",
     "_objFlags": 0,
     "node": {
@@ -129,11 +129,28 @@
       "x": 0,
       "y": 0
     },
-    "_size": {
-      "__type__": "cc.Size",
-      "width": 14,
-      "height": 14
-    },
+    "points": [
+      {
+        "__type__": "cc.Vec2",
+        "x": -8,
+        "y": -13
+      },
+      {
+        "__type__": "cc.Vec2",
+        "x": 8,
+        "y": -13
+      },
+      {
+        "__type__": "cc.Vec2",
+        "x": 8,
+        "y": 13
+      },
+      {
+        "__type__": "cc.Vec2",
+        "x": -8,
+        "y": 13
+      }
+    ],
     "_id": ""
   },
   {
@@ -152,7 +169,7 @@
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
     "_spriteFrame": {
-      "__uuid__": "b66126b2-aea9-4b73-8405-60421dab85cd"
+      "__uuid__": "0b2a69d1-8e23-44fc-9ad6-38d8ea0f81f4"
     },
     "_type": 0,
     "_sizeMode": 1,
@@ -166,8 +183,20 @@
     "_fillRange": 0,
     "_isTrimmedMode": true,
     "_atlas": {
-      "__uuid__": "b4b5325e-e2cb-47c8-84a0-2c03aeb1ae7f"
+      "__uuid__": "71ac63b6-8edb-4f0a-a0d5-fa9a3b46a266"
     },
+    "_id": ""
+  },
+  {
+    "__type__": "404191WgIdJ8r9DXqDobpXW",
+    "_name": "",
+    "_objFlags": 0,
+    "node": {
+      "__id__": 1
+    },
+    "_enabled": true,
+    "bulletPrefab": null,
+    "camera": null,
     "_id": ""
   },
   {
@@ -179,32 +208,20 @@
     },
     "_enabled": true,
     "_defaultClip": {
-      "__uuid__": "81a4b4ae-90e7-4884-8df6-da3300f03be0"
+      "__uuid__": "3a12e05e-d8af-44da-9189-def633d6472b"
     },
     "_clips": [
       {
-        "__uuid__": "81a4b4ae-90e7-4884-8df6-da3300f03be0"
+        "__uuid__": "3a12e05e-d8af-44da-9189-def633d6472b"
       },
       {
-        "__uuid__": "f609268e-6a6d-4a54-b293-561c53ffe003"
+        "__uuid__": "5240ad62-0ff9-45dc-b9cb-9d4c40acf842"
+      },
+      {
+        "__uuid__": "d5e04425-22a5-4df3-a161-a560c351dbfe"
       }
     ],
     "playOnLoad": true,
-    "_id": ""
-  },
-  {
-    "__type__": "0bb41Y28D5M2oigfEkZW9PM",
-    "_name": "",
-    "_objFlags": 0,
-    "node": {
-      "__id__": 1
-    },
-    "_enabled": true,
-    "soundEffect": null,
-    "coinPrefab": {
-      "__uuid__": "83338643-2668-48de-b178-a414f892c662"
-    },
-    "bigPrefab": null,
     "_id": ""
   },
   {
@@ -213,9 +230,9 @@
       "__id__": 1
     },
     "asset": {
-      "__uuid__": "6d67abe2-a306-4bbe-a48f-59c7a4a217ad"
+      "__uuid__": "11d67d38-a161-4d9b-b8ea-a774bef0c29b"
     },
-    "fileId": "bfkLjdKMFOhKAkXlqxWM1z",
+    "fileId": "e3t9fTM5REy4katrYpuls4",
     "sync": false
   }
 ]

@@ -1,0 +1,61 @@
+{
+  "__type__": "cc.AnimationClip",
+  "_name": "marioIdle",
+  "_objFlags": 0,
+  "_native": "",
+  "_duration": 6.016666666666667,
+  "sample": 60,
+  "speed": 1,
+  "wrapMode": 2,
+  "curveData": {
+    "comps": {
+      "cc.Sprite": {
+        "spriteFrame": [
+          {
+            "frame": 0,
+            "value": {
+              "__uuid__": "3891b1f9-db04-4d13-888f-4928244d10c2"
+            }
+          },
+          {
+            "frame": 1.0166666666666666,
+            "value": {
+              "__uuid__": "e500fb46-a4f2-477f-af32-e30b6a36c651"
+            }
+          },
+          {
+            "frame": 2.0166666666666666,
+            "value": {
+              "__uuid__": "3891b1f9-db04-4d13-888f-4928244d10c2"
+            }
+          },
+          {
+            "frame": 3.0166666666666666,
+            "value": {
+              "__uuid__": "e500fb46-a4f2-477f-af32-e30b6a36c651"
+            }
+          },
+          {
+            "frame": 4.016666666666667,
+            "value": {
+              "__uuid__": "3891b1f9-db04-4d13-888f-4928244d10c2"
+            }
+          },
+          {
+            "frame": 5.016666666666667,
+            "value": {
+              "__uuid__": "e500fb46-a4f2-477f-af32-e30b6a36c651"
+            }
+          },
+          {
+            "frame": 6,
+            "value": {
+              "__uuid__": "3891b1f9-db04-4d13-888f-4928244d10c2"
+            }
+          }
+        ]
+      }
+    }
+  },
+  "events": []
+}
