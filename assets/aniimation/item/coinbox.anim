@@ -1,0 +1,49 @@
+{
+  "__type__": "cc.AnimationClip",
+  "_name": "coinbox",
+  "_objFlags": 0,
+  "_native": "",
+  "_duration": 1.2666666666666666,
+  "sample": 60,
+  "speed": 1,
+  "wrapMode": 2,
+  "curveData": {
+    "comps": {
+      "cc.Sprite": {
+        "spriteFrame": [
+          {
+            "frame": 0,
+            "value": {
+              "__uuid__": "b66126b2-aea9-4b73-8405-60421dab85cd"
+            }
+          },
+          {
+            "frame": 0.2833333333333333,
+            "value": {
+              "__uuid__": "f1939273-48cd-4f66-91c3-3d04096a06a2"
+            }
+          },
+          {
+            "frame": 0.6,
+            "value": {
+              "__uuid__": "b8b6e819-1987-484f-9558-7f4a10ee9434"
+            }
+          },
+          {
+            "frame": 0.9333333333333333,
+            "value": {
+              "__uuid__": "0fa41673-0a60-432e-a720-4e21bba01005"
+            }
+          },
+          {
+            "frame": 1.25,
+            "value": {
+              "__uuid__": "1d56ed7b-f774-43f1-95f6-ebe1798d38ed"
+            }
+          }
+        ]
+      }
+    }
+  },
+  "events": []
+}
