@@ -36,12 +36,16 @@ export default class Box extends cc.Component {
     cc.log("contact!!");
     
     if(self.node.name == "coinbox"&&other.node.name=="Player"&&this.isTouched==false) {
-      let action = cc.sequence(cc.moveBy(0.2,0,10),cc.moveBy(0.2,0,-10));
-      this.node.runAction(action);
-      this.anim.stop();
-      this.anim.play("hittencoinbox");
-      cc.log("hits coinbox");
-      this.isTouched=true;
+      if(contact.getWorldManifold().normal.y<0)
+      {
+        let action = cc.sequence(cc.moveBy(0.2,0,10),cc.moveBy(0.2,0,-10));
+        this.node.runAction(action);
+        this.anim.stop();
+        this.anim.play("hittencoinbox");
+        this.createCoin();
+        cc.log("hits coinbox");
+        this.isTouched=true;
+      }
     } 
     
   }
@@ -63,7 +67,7 @@ export default class Box extends cc.Component {
   
   private createCoin() {
     let coin = cc.instantiate(this.coinPrefab);
-    coin.getComponent('Bullet_ans').init(this.node);
+    coin.getComponent('Coin').init(this.node);
   }
 
 }
