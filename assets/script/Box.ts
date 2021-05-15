@@ -8,6 +8,9 @@ export default class Box extends cc.Component {
   @property(cc.Prefab)
   private coinPrefab: cc.Prefab = null;
 
+  @property(cc.Prefab)
+  private bigPrefab: cc.Prefab = null;
+
   protected isTouched: boolean = false;
 
   private anim: cc.Animation = null;
@@ -47,6 +50,19 @@ export default class Box extends cc.Component {
         this.isTouched=true;
       }
     } 
+    else if(self.node.name == "bigbox" && other.node.name=="Player" && this.isTouched==false) {
+      if(contact.getWorldManifold().normal.y<0)
+      {
+        let action = cc.sequence(cc.moveBy(0.2,0,10),cc.moveBy(0.2,0,-10));
+        this.node.runAction(action);
+        this.anim.stop();
+        this.anim.play("hittencoinbox");
+        //this.createBig();
+        this.scheduleOnce(()=>{this.createBig()},0.5);
+        cc.log("hits bigbox");
+        this.isTouched=true;
+      }
+    }
     
   }
   
@@ -68,6 +84,11 @@ export default class Box extends cc.Component {
   private createCoin() {
     let coin = cc.instantiate(this.coinPrefab);
     coin.getComponent('Coin').init(this.node);
+  }
+
+  private createBig() {
+    let big = cc. instantiate(this.bigPrefab);
+    big.getComponent('Big').init(this.node);
   }
 
 }
