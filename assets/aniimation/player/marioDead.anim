@@ -1,9 +1,37 @@
 {
   "__type__": "cc.AnimationClip",
-  "_name": "",
+  "_name": "marioDead",
   "_objFlags": 0,
-  "_duration": 0,
+  "_native": "",
+  "_duration": 4.05,
   "sample": 60,
-  "curveData": {},
+  "speed": 1,
+  "wrapMode": 1,
+  "curveData": {
+    "comps": {
+      "cc.Sprite": {
+        "spriteFrame": [
+          {
+            "frame": 0,
+            "value": {
+              "__uuid__": "5cbbbca2-cb97-4ab9-bdc2-06cb81a56010"
+            }
+          },
+          {
+            "frame": 0.4,
+            "value": {
+              "__uuid__": "fe6562fe-9109-4c1b-a507-8e4764b0db8c"
+            }
+          },
+          {
+            "frame": 4.033333333333333,
+            "value": {
+              "__uuid__": "fe6562fe-9109-4c1b-a507-8e4764b0db8c"
+            }
+          }
+        ]
+      }
+    }
+  },
   "events": []
 }

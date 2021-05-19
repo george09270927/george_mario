@@ -35,6 +35,10 @@ export default class Player extends cc.Component
 
     private onGround: boolean = false;
 
+    private hit_right_main: boolean = false;
+    private hit_left_main: boolean = false;
+    private deadfinish: boolean = true;
+
     start() {
         this.anim = this.getComponent(cc.Animation);
       }
@@ -76,25 +80,27 @@ export default class Player extends cc.Component
     private playerMovement(dt) {
         this.playerSpeed = 0;
         if(this.isDead) {
-            this.node.getComponent(cc.RigidBody).linearVelocity = cc.v2(0, 0);
-            this.node.position = cc.v2(-192, 255);
-            this.isDead = false;
+            
+            //this.node.getComponent(cc.RigidBody).linearVelocity = cc.v2(0, 0);
             return;
         }
 
-        if(this.zDown){
-            this.playerSpeed = -150;
+        else if(this.zDown&&this.hit_left_main==false){
+            this.playerSpeed = -100;
             this.node.scaleX = -1;
         }
-        else if(this.xDown){
-            this.playerSpeed = 150;
+        else if(this.xDown&&this.hit_right_main==false){
+            this.playerSpeed = 100;
             this.node.scaleX = 1;
         }
         
-        this.node.x += this.playerSpeed * dt;
-
         if(this.kDown && this.onGround)
+        {
+            this.hit_right_main = false;
+            this.hit_left_main = false; 
             this.jump();
+        }
+        this.node.x += this.playerSpeed * dt;
     }    
 
     private jump() {
@@ -104,7 +110,7 @@ export default class Player extends cc.Component
         //this.getComponent(cc.RigidBody).applyForceToCenter(new cc.Vec2(0, 1500000), true);
 
         // Method II: Change velocity of rigidbody
-         this.getComponent(cc.RigidBody).linearVelocity = cc.v2(0, 500);
+        this.getComponent(cc.RigidBody).linearVelocity = cc.v2(0, 320);
     }
 
     private createBullet() {
@@ -116,37 +122,65 @@ export default class Player extends cc.Component
         this.playerMovement(dt);
         this.camerafollow();
         //cc.log(this.nowstate);
-        if(this.playerSpeed!=0&&this.animstate!="marioRun")
+        if(this.isDead&&this.deadfinish)
+        {
+            this.reborn();
+            this.deadfinish=false;
+        }
+        else if(this.isDead==false&&this.playerSpeed!=0&&this.animstate!="marioRun")
         {
             this.anim.stop();
             this.animstate=this.anim.play("marioRun");
             this.animstate="marioRun";
         }
-        else if(this.playerSpeed==0&&this.animstate!="marioIdle"){
+        else if(this.isDead==false&&this.playerSpeed==0&&this.animstate!="marioIdle"){
             this.anim.stop();
             this.anim.play("marioIdle");
             this.animstate="marioIdle";
         }
+        
     }
 
     onBeginContact(contact, self, other) {
-        if(other.node.name == "main") {
-            cc.log("mario hits the main ground");
-            this.onGround = true;
-        } else if(other.node.name == "coinbox") {
-            cc.log("mario hits the coinbox");
-            this.onGround = true;
-        } else if(other.node.name == "normalbrick") {
-            cc.log("mario hits the coinbox");
-            this.onGround = true;
-        } else if(other.node.name == "Big") {
-            cc.log("mario hits the Big");
-            this.nowstate=this.marioState.Big;
-            this.scheduleOnce(()=>{this.nowstate=this.marioState.Normal},15);
-        } else if(other.node.name == "enemy") {
-            cc.log("Rockman hits the enemy");
-            this.isDead = true;
+        if(this.isDead==false)
+        {
+            if(other.node.name == "main") {
+                cc.log("mario hits the main ground");
+                this.onGround = true;
+                if(contact.getWorldManifold().normal.x>0)
+                {
+                    this.hit_right_main = true;
+                }
+                else if(contact.getWorldManifold().normal.x<0)
+                {
+                    this.hit_left_main = true; 
+                }
+                else 
+                {
+                    this.hit_right_main = false;
+                    this.hit_left_main = false; 
+                }
+            } else if(other.node.name == "coinbox") {
+                cc.log("mario hits the coinbox");
+                this.onGround = true;
+            } else if(other.node.name == "normalbrick") {
+                cc.log("mario hits the coinbox");
+                this.onGround = true;
+            } else if(other.node.name == "Big") {
+                cc.log("mario hits the Big");
+                this.nowstate=this.marioState.Big;
+                this.scheduleOnce(()=>{this.nowstate=this.marioState.Normal},15);
+            } else if(other.node.name == "Goomba") {
+                cc.log("mario hits the Goomda");
+                if(contact.getWorldManifold().normal.y<0) this.jump();
+                else 
+                {
+                    this.isDead = true;
+                    //this.node.getComponent(cc.RigidBody).linearVelocity = cc.v2(0, 0);
+                }
+            }
         }
+        //else contact.disabled=true;
     }
 
     camerafollow(){
@@ -162,6 +196,27 @@ export default class Player extends cc.Component
     }
 
 
+    reborn(){
+        cc.log("reborn");
+        this.anim.stop();
+        this.animstate=this.anim.play("marioDead");
+        cc.director.getPhysicsManager().enabled = false;  
+        this.node.runAction(cc.sequence(cc.moveBy(1,0,20),cc.moveBy(1,0,-500)));
+
+        // Return to reborn position
+        //this.getComponent(cc.RigidBody).linearVelocity = cc.v2(0, -11);
+        this.scheduleOnce(()=>{
+            this.node.x = 100;
+            this.node.y = 100;
+            cc.director.getPhysicsManager().enabled = true; 
+            // Init animation
+            this.anim.stop();
+            this.anim.play("marioIdle");
+            this.animstate="marioIdle";
+            this.deadfinish=true;
+            this.isDead=false;
+            },2);
+    }
 
 
 }
