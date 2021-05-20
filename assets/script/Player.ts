@@ -43,6 +43,11 @@ export default class Player extends cc.Component
     private isBig: boolean = false;
     private bigfinish: boolean = true;
 
+    private isNormal: boolean = false;
+    private normalfinish: boolean = true;
+
+    private invicible: boolean = false;
+
     start() {
         this.anim = this.getComponent(cc.Animation);
       }
@@ -53,7 +58,7 @@ export default class Player extends cc.Component
         cc.systemEvent.on(cc.SystemEvent.EventType.KEY_DOWN, this.onKeyDown, this);
         cc.systemEvent.on(cc.SystemEvent.EventType.KEY_UP, this.onKeyUp, this);
         this.nowstate = this.marioState.Normal; 
-        cc.director.getPhysicsManager().debugDrawFlags=1;
+        //cc.director.getPhysicsManager().debugDrawFlags=1;
     }
 
     onKeyDown(event) {
@@ -86,13 +91,17 @@ export default class Player extends cc.Component
     private playerMovement(dt) {
         this.playerSpeed = 0;
         if(this.isDead) {
-            
-            //this.node.getComponent(cc.RigidBody).linearVelocity = cc.v2(0, 0);
             return;
         }
         else if(this.isBig)
         {
             this.node.getComponent(cc.PhysicsBoxCollider).size.height = 28;
+            this.node.scaleX = 1;
+            return;
+        }
+        else if(this.isNormal)
+        {
+            this.node.getComponent(cc.PhysicsBoxCollider).size.height = 16;
             this.node.scaleX = 1;
             return;
         }
@@ -145,6 +154,11 @@ export default class Player extends cc.Component
             this.turnBig();
             this.bigfinish=false;
         }
+        else if(this.isNormal&&this.normalfinish)
+        {
+            this.turnNormal();
+            this.normalfinish=false;
+        }
         else if(this.isBig==false&&this.isDead==false&&this.playerSpeed!=0&&this.animstate!="marioRun"&&this.nowstate==this.marioState.Normal)
         {
             this.anim.stop();
@@ -192,6 +206,7 @@ export default class Player extends cc.Component
                 this.onGround = true;
             } else if(other.node.name == "Big") {
                 cc.log("mario hits the Big");
+                this.node.getComponent(cc.PhysicsBoxCollider).enabled = false;
                 this.node.getComponent(cc.PhysicsBoxCollider).size.height = 28;
                 this.isBig = true;
             } else if(other.node.name == "Goomba") {
@@ -199,12 +214,16 @@ export default class Player extends cc.Component
                 if(contact.getWorldManifold().normal.y<0) this.jump();
                 else 
                 {
-                    this.isDead = true;
-                    //this.node.getComponent(cc.RigidBody).linearVelocity = cc.v2(0, 0);
+                    if(this.nowstate==this.marioState.Big)
+                    {
+                        this.node.getComponent(cc.PhysicsBoxCollider).enabled = false;
+                        this.node.getComponent(cc.PhysicsBoxCollider).size.height = 16;
+                        this.isNormal=true;
+                    }
+                    else this.isDead = true;
                 }
             }
         }
-        //else contact.disabled=true;
     }
 
     camerafollow(){
@@ -228,7 +247,6 @@ export default class Player extends cc.Component
         this.node.runAction(cc.sequence(cc.moveBy(1,0,20),cc.moveBy(1,0,-500)));
 
         // Return to reborn position
-        //this.getComponent(cc.RigidBody).linearVelocity = cc.v2(0, -11);
         this.scheduleOnce(()=>{
             this.node.x = 100;
             this.node.y = 100;
@@ -246,8 +264,6 @@ export default class Player extends cc.Component
         this.anim.stop();
         this.anim.play("marioBigIdle");
         this.animstate="marioBigIdle";
-        this.node.getComponent(cc.PhysicsBoxCollider).size.height = 28;
-        this.node.getComponent(cc.PhysicsBoxCollider).enabled = false;
         cc.director.getPhysicsManager().enabled = false;
         cc.log("turnbig");
         this.nowstate=this.marioState.Big;
@@ -260,4 +276,28 @@ export default class Player extends cc.Component
             this.isBig=false;
         },2);
     }
+
+    turnNormal(){
+        this.anim.stop();
+        this.anim.play("marioIdle");
+        this.animstate="marioIdle";
+        cc.director.getPhysicsManager().enabled = false;
+        cc.log("turnnormal");
+        this.nowstate=this.marioState.Normal;
+        //this.scheduleOnce(()=>{this.nowstate=this.marioState.Normal},15);
+        this.node.runAction(cc.sequence(cc.moveBy(1,0,20),cc.moveBy(1,0,-20)));
+        this.scheduleOnce(()=>{
+            cc.director.getPhysicsManager().enabled = true;
+            this.node.getComponent(cc.PhysicsBoxCollider).enabled = true;
+            this.normalfinish=true;
+            this.isNormal=false;
+        },2);
+        this.scheduleOnce(()=>{
+            
+        },4);
+    }
+
+
+
+
 }

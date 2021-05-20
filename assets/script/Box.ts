@@ -11,6 +11,10 @@ export default class Box extends cc.Component {
   @property(cc.Prefab)
   private bigPrefab: cc.Prefab = null;
 
+
+  @property(cc.Prefab)
+  private breakPrefab: cc.Prefab = null;
+
   protected isTouched: boolean = false;
 
   private anim: cc.Animation = null;
@@ -63,6 +67,15 @@ export default class Box extends cc.Component {
         this.isTouched=true;
       }
     }
+    else if(self.node.name == "normalbrick" && other.node.name=="Player"&&other.node.getComponent("Player").nowstate ==other.node.getComponent("Player").marioState.Big && this.isTouched==false) {
+      if(contact.getWorldManifold().normal.y<0)
+      {
+        cc.log("hits bigbox");
+        this.createBreak();
+        this.isTouched=true;
+        this.node.destroy();
+      }
+    }
     
   }
   
@@ -91,4 +104,8 @@ export default class Box extends cc.Component {
     big.getComponent('Big').init(this.node);
   }
 
+  private createBreak() {
+    let big = cc. instantiate(this.breakPrefab);
+    big.getComponent('Break').init(this.node);
+  }
 }

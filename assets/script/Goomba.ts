@@ -3,7 +3,7 @@ const {ccclass, property} = cc._decorator;
 @ccclass
 export default class Goomba extends cc.Component {
 
-    private speed = 50;
+    private speed = 80;
 
     private anim: cc.Animation = null;
 
@@ -25,7 +25,6 @@ export default class Goomba extends cc.Component {
     
     private setInitPos(node: cc.Node)
     {
-        
 
         this.node.position = cc.v2(0,25);
 
@@ -47,7 +46,29 @@ export default class Goomba extends cc.Component {
             cc.log("goomba hit mario");
             this.speed=0;
             this.anim.play("goomdaDead");
-            this.scheduleOnce(()=>{self.node.destroy();},0.4);
+
+            let moveAct = null;
+            moveAct = cc.callFunc(()=>{this.anim.play("boxbreak")});
+            let fadeAct = cc.fadeOut(0.8);
+            let breakAct = cc.spawn(moveAct,fadeAct);
+            let finishAct = cc.callFunc(()=>{this.node.destroy();});
+            this.scheduleOnce(()=>{this.node.runAction(cc.sequence(breakAct,finishAct));},0.5); 
+
+            this.scheduleOnce(()=>{self.node.destroy();},0.7);
+        }
+        else if(other.node.name == "Player"&&other.node.getComponent("Player").nowstate ==other.node.getComponent("Player").marioState.Big ) {
+            cc.log("goomba hit mario");
+            this.speed=0;
+            this.anim.play("goomdaDead");
+
+            let moveAct = null;
+            moveAct = cc.callFunc(()=>{this.anim.play("boxbreak")});
+            let fadeAct = cc.fadeOut(0.8);
+            let breakAct = cc.spawn(moveAct,fadeAct);
+            let finishAct = cc.callFunc(()=>{this.node.destroy();});
+            this.scheduleOnce(()=>{this.node.runAction(cc.sequence(breakAct,finishAct));},0.5); 
+
+            this.scheduleOnce(()=>{self.node.destroy();},0.7);
         }
         
         else if(contact.getWorldManifold().normal.x!=0)
@@ -56,7 +77,7 @@ export default class Goomba extends cc.Component {
             //this.node.getComponent(cc.RigidBody).linearVelocity = cc.v2(this.speed, 0);
         }
         
-        this.schedule(()=>{this.speed = - this.speed;},5);
+        this.schedule(()=>{this.speed = - this.speed;},3);
     }
     /*
     onEndContact(contact, self, other) {

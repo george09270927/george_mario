@@ -129,7 +129,7 @@
     "_enabled": true,
     "_type": 2,
     "_allowSleep": false,
-    "_gravityScale": 1,
+    "_gravityScale": 30,
     "_linearDamping": 0,
     "_angularDamping": 0,
     "_linearVelocity": {
@@ -138,7 +138,7 @@
       "y": 0
     },
     "_angularVelocity": 0,
-    "_fixedRotation": false,
+    "_fixedRotation": true,
     "enabledContactListener": true,
     "bullet": false,
     "awakeOnLoad": true,
@@ -160,13 +160,13 @@
     "body": null,
     "_offset": {
       "__type__": "cc.Vec2",
-      "x": 0.1,
-      "y": -3.4
+      "x": 0,
+      "y": -3.3
     },
     "_size": {
       "__type__": "cc.Size",
-      "width": 20.2,
-      "height": 17.2
+      "width": 16,
+      "height": 16
     },
     "_id": ""
   },
@@ -192,6 +192,9 @@
     "_clips": [
       {
         "__uuid__": "215524c3-afc5-48bc-a45c-44c7b500072f"
+      },
+      {
+        "__uuid__": "eb7f2ae1-5654-46bd-9862-d31a83e1bffb"
       }
     ],
     "playOnLoad": false,
