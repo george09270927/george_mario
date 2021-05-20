@@ -1,6 +1,7 @@
 {
   "ver": "1.2.4",
   "uuid": "fae288cc-d397-49d5-bcf9-ad84d6a661f2",
+  "rawTextureUuid": "e71fe775-75f4-4a1a-bf1d-b98df5105ec0",
   "size": {
     "width": 42,
     "height": 42
@@ -10,6 +11,7 @@
     "effects_0.png": {
       "ver": "1.0.4",
       "uuid": "3ea0d884-52f3-44f9-a983-202176157412",
+      "rawTextureUuid": "e71fe775-75f4-4a1a-bf1d-b98df5105ec0",
       "trimType": "auto",
       "trimThreshold": 1,
       "rotated": false,
@@ -31,6 +33,7 @@
     "effects_1.png": {
       "ver": "1.0.4",
       "uuid": "d0331469-2d29-4c22-ba9b-3132626086cd",
+      "rawTextureUuid": "e71fe775-75f4-4a1a-bf1d-b98df5105ec0",
       "trimType": "auto",
       "trimThreshold": 1,
       "rotated": false,
@@ -52,6 +55,7 @@
     "effects_2.png": {
       "ver": "1.0.4",
       "uuid": "8da7bb71-d280-41d6-ab13-b0ce4a2cbfe0",
+      "rawTextureUuid": "e71fe775-75f4-4a1a-bf1d-b98df5105ec0",
       "trimType": "auto",
       "trimThreshold": 1,
       "rotated": false,
@@ -73,6 +77,7 @@
     "effects_3.png": {
       "ver": "1.0.4",
       "uuid": "378b31fa-7e88-4149-aed2-a5d71064daa3",
+      "rawTextureUuid": "e71fe775-75f4-4a1a-bf1d-b98df5105ec0",
       "trimType": "auto",
       "trimThreshold": 1,
       "rotated": false,
