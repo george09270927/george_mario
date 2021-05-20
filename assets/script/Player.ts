@@ -9,6 +9,9 @@ export default class Player extends cc.Component
     @property(cc.Node)
     private camera: cc.Node = null;
 
+    @property(cc.Node)
+    private UI: cc.Node = null;
+
     private nowstate;
 
     private marioState= cc.Enum({
@@ -143,6 +146,7 @@ export default class Player extends cc.Component
         //cc.log(this.node.getComponent(cc.PhysicsBoxCollider).size);
         this.playerMovement(dt);
         this.camerafollow();
+        this.UIfollow();
         //cc.log(this.nowstate);
         if(this.isDead&&this.deadfinish)
         {
@@ -222,6 +226,9 @@ export default class Player extends cc.Component
                     }
                     else this.isDead = true;
                 }
+            } else if(other.node.name == "worldrange")
+            {
+                this.isDead = true;
             }
         }
     }
@@ -235,6 +242,18 @@ export default class Player extends cc.Component
             else
             {
                 this.camera.x = this.node.x-450;
+            }
+    }
+
+    UIfollow(){
+        var scene = cc.director.getScene();
+            if(this.node.x<=450)
+            {
+                this.UI.x=0;
+            }
+            else
+            {
+                this.UI.x = this.node.x-450;
             }
     }
 
