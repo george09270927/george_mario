@@ -49,8 +49,8 @@ export default class Player extends cc.Component
     private isNormal: boolean = false;
     private normalfinish: boolean = true;
 
-    private invicible: boolean = true;
-    //private invicible: boolean = false;
+    //private invicible: boolean = true;
+    private invicible: boolean = false;
 
     start() {
         this.anim = this.getComponent(cc.Animation);
@@ -62,7 +62,7 @@ export default class Player extends cc.Component
         cc.systemEvent.on(cc.SystemEvent.EventType.KEY_DOWN, this.onKeyDown, this);
         cc.systemEvent.on(cc.SystemEvent.EventType.KEY_UP, this.onKeyUp, this);
         this.nowstate = this.marioState.Normal; 
-        //cc.director.getPhysicsManager().debugDrawFlags=1;
+        cc.director.getPhysicsManager().debugDrawFlags=1;
     }
 
     onKeyDown(event) {
@@ -218,6 +218,19 @@ export default class Player extends cc.Component
                 cc.log("mario hits the Goomda");
                 if(contact.getWorldManifold().normal.y<0) this.jump();
                 else 
+                {
+                    if(this.nowstate==this.marioState.Big)
+                    {
+                        this.node.getComponent(cc.PhysicsBoxCollider).enabled = false;
+                        this.node.getComponent(cc.PhysicsBoxCollider).size.height = 16;
+                        this.isNormal=true;
+                    }
+                    else if(this.invicible==false) this.isDead = true;
+                }
+            } else if(other.node.name == "Turtle") {
+                cc.log("mario hits the Turtle");
+                if(contact.getWorldManifold().normal.y<0) this.jump();
+                else if(other.node.getComponent("Turtle").nowstate!=other.node.getComponent("Turtle").turtleState.Hitten)
                 {
                     if(this.nowstate==this.marioState.Big)
                     {

@@ -1,0 +1,52 @@
+{
+  "__type__": "cc.AnimationClip",
+  "_name": "TurtleHit",
+  "_objFlags": 0,
+  "_native": "",
+  "_duration": 0.6833333333333333,
+  "sample": 60,
+  "speed": 1,
+  "wrapMode": 2,
+  "curveData": {
+    "comps": {
+      "cc.Sprite": {
+        "spriteFrame": [
+          {
+            "frame": 0,
+            "value": {
+              "__uuid__": "abd59d7d-314c-46bc-af5f-0f7f4c92cf53"
+            }
+          },
+          {
+            "frame": 0.16666666666666666,
+            "value": {
+              "__uuid__": "3dc228c3-6c9e-49a2-9d12-ce752287f3ae"
+            }
+          },
+          {
+            "frame": 0.3333333333333333,
+            "value": {
+              "__uuid__": "7a42efcc-cc37-41a6-9e77-449116cdb4f6"
+            }
+          },
+          {
+            "frame": 0.5,
+            "value": {
+              "__uuid__": "3dc228c3-6c9e-49a2-9d12-ce752287f3ae"
+            }
+          },
+          {
+            "frame": 0.6666666666666666,
+            "value": {
+              "__uuid__": "abd59d7d-314c-46bc-af5f-0f7f4c92cf53"
+            }
+          }
+        ]
+      },
+      "cc.PhysicsBoxCollider": {
+        "size": []
+      }
+    }
+  },
+  "events": []
+}

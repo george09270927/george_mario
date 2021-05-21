@@ -71,6 +71,20 @@ export default class Goomba extends cc.Component {
 
             this.scheduleOnce(()=>{self.node.destroy();},0.7);
         }
+        else if(other.node.name == "Turtle"&&other.node.getComponent("Turtle").nowstate ==other.node.getComponent("Turtle").turtleState.Turn ) {
+            cc.log("goomba hit turtle");
+            this.speed=0;
+            this.anim.play("goomdaDead");
+
+            let moveAct = null;
+            moveAct = cc.callFunc(()=>{this.anim.play("boxbreak")});
+            let fadeAct = cc.fadeOut(0.8);
+            let breakAct = cc.spawn(moveAct,fadeAct);
+            let finishAct = cc.callFunc(()=>{this.node.destroy();});
+            this.scheduleOnce(()=>{this.node.runAction(cc.sequence(breakAct,finishAct));},0.5); 
+
+            this.scheduleOnce(()=>{self.node.destroy();},0.7);
+        }
         else if(other.node.name == "worldrange")
         {
             self.node.destroy();
@@ -78,7 +92,17 @@ export default class Goomba extends cc.Component {
         
         else if(contact.getWorldManifold().normal.x!=0)
         {
-            this.speed = 0 - this.speed;
+            if(contact.getWorldManifold().normal.x>0&&this.speed>0)
+            {
+                this.speed = 0 - this.speed;
+                this.node.scaleX=-this.node.scaleX;
+            }
+            else if(contact.getWorldManifold().normal.x<0&&this.speed<0)
+            {
+                this.speed = 0 - this.speed;
+                this.node.scaleX=-this.node.scaleX;
+            }
+            
             //this.node.getComponent(cc.RigidBody).linearVelocity = cc.v2(this.speed, 0);
         }
         
