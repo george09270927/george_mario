@@ -55,7 +55,7 @@ export default class Goomba extends cc.Component {
             let finishAct = cc.callFunc(()=>{this.node.destroy();});
             this.scheduleOnce(()=>{this.node.runAction(cc.sequence(breakAct,finishAct));},0.5); 
 
-            this.scheduleOnce(()=>{self.node.destroy();},0.7);
+            this.scheduleOnce(()=>{self.node.destroy();},0.6);
         }
         else if(other.node.name == "Player"&&other.node.getComponent("Player").nowstate ==other.node.getComponent("Player").marioState.Big ) {
             cc.log("goomba hit mario");
@@ -69,7 +69,7 @@ export default class Goomba extends cc.Component {
             let finishAct = cc.callFunc(()=>{this.node.destroy();});
             this.scheduleOnce(()=>{this.node.runAction(cc.sequence(breakAct,finishAct));},0.5); 
 
-            this.scheduleOnce(()=>{self.node.destroy();},0.7);
+            this.scheduleOnce(()=>{self.node.destroy();},0.6);
         }
         else if(other.node.name == "Turtle"&&other.node.getComponent("Turtle").nowstate ==other.node.getComponent("Turtle").turtleState.Turn ) {
             cc.log("goomba hit turtle");

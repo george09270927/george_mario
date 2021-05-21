@@ -62,7 +62,7 @@ export default class Player extends cc.Component
         cc.systemEvent.on(cc.SystemEvent.EventType.KEY_DOWN, this.onKeyDown, this);
         cc.systemEvent.on(cc.SystemEvent.EventType.KEY_UP, this.onKeyUp, this);
         this.nowstate = this.marioState.Normal; 
-        cc.director.getPhysicsManager().debugDrawFlags=1;
+        //cc.director.getPhysicsManager().debugDrawFlags=1;
     }
 
     onKeyDown(event) {
@@ -227,7 +227,18 @@ export default class Player extends cc.Component
                     }
                     else if(this.invicible==false) this.isDead = true;
                 }
-            } else if(other.node.name == "Turtle") {
+            }  else if(other.node.name == "Flower") {
+                cc.log("mario hits the Flower");
+                
+                    if(this.nowstate==this.marioState.Big)
+                    {
+                        this.node.getComponent(cc.PhysicsBoxCollider).enabled = false;
+                        this.node.getComponent(cc.PhysicsBoxCollider).size.height = 16;
+                        this.isNormal=true;
+                    }
+                    else if(this.invicible==false) this.isDead = true;
+                
+            }  else if(other.node.name == "Turtle") {
                 cc.log("mario hits the Turtle");
                 if(contact.getWorldManifold().normal.y<0) this.jump();
                 else if(other.node.getComponent("Turtle").nowstate!=other.node.getComponent("Turtle").turtleState.Hitten)
