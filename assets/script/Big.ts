@@ -21,7 +21,7 @@ export default class Big extends cc.Component {
     {
         this.node.parent = node.parent; // don't mount under the player, otherwise it will change direction when player move
 
-        this.node.position = cc.v2(0,25);
+        this.node.position = cc.v2(0,26);
 
         this.node.position = this.node.position.addSelf(node.position);
     }

@@ -10,6 +10,7 @@ export default class Goomba extends cc.Component {
     start()
     {
         this.anim = this.getComponent(cc.Animation);
+        this.schedule(()=>{this.speed = 0 - this.speed;},2+Math.random());
     }
 
     onLoad() {
@@ -70,14 +71,18 @@ export default class Goomba extends cc.Component {
 
             this.scheduleOnce(()=>{self.node.destroy();},0.7);
         }
+        else if(other.node.name == "worldrange")
+        {
+            self.node.destroy();
+        }
         
         else if(contact.getWorldManifold().normal.x!=0)
         {
-            this.speed = - this.speed;
+            this.speed = 0 - this.speed;
             //this.node.getComponent(cc.RigidBody).linearVelocity = cc.v2(this.speed, 0);
         }
         
-        this.schedule(()=>{this.speed = - this.speed;},3);
+        
     }
     /*
     onEndContact(contact, self, other) {

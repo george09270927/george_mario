@@ -1,0 +1,4 @@
+方塊 每個x+15
+
+node 16
+rigidbody 14
