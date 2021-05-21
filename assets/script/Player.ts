@@ -49,7 +49,8 @@ export default class Player extends cc.Component
     private isNormal: boolean = false;
     private normalfinish: boolean = true;
 
-    private invicible: boolean = false;
+    private invicible: boolean = true;
+    //private invicible: boolean = false;
 
     start() {
         this.anim = this.getComponent(cc.Animation);
@@ -224,11 +225,17 @@ export default class Player extends cc.Component
                         this.node.getComponent(cc.PhysicsBoxCollider).size.height = 16;
                         this.isNormal=true;
                     }
-                    else this.isDead = true;
+                    else if(this.invicible==false) this.isDead = true;
                 }
             } else if(other.node.name == "worldrange")
             {
-                this.isDead = true;
+                if(this.nowstate==this.marioState.Big) 
+                {
+                    this.node.getComponent(cc.PhysicsBoxCollider).enabled = false;
+                    this.node.getComponent(cc.PhysicsBoxCollider).size.height = 16;
+                    this.isNormal=true;
+                }
+                else this.isDead = true;
             }
         }
     }
