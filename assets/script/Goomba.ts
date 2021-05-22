@@ -11,6 +11,7 @@ export default class Goomba extends cc.Component {
     {
         this.anim = this.getComponent(cc.Animation);
         this.schedule(()=>{this.speed = 0 - this.speed;},2+Math.random());
+        this.schedule(()=>{this.node.scaleX=-this.node.scaleX;},0.2);
     }
 
     onLoad() {
@@ -95,12 +96,10 @@ export default class Goomba extends cc.Component {
             if(contact.getWorldManifold().normal.x>0&&this.speed>0)
             {
                 this.speed = 0 - this.speed;
-                this.node.scaleX=-this.node.scaleX;
             }
             else if(contact.getWorldManifold().normal.x<0&&this.speed<0)
             {
                 this.speed = 0 - this.speed;
-                this.node.scaleX=-this.node.scaleX;
             }
             
             //this.node.getComponent(cc.RigidBody).linearVelocity = cc.v2(this.speed, 0);
