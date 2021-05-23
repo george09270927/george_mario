@@ -465,13 +465,13 @@ export default class Player extends cc.Component
             {
                 this.camera.x = this.node.x-450;
             }
-            /*
+            
             if(this.isDead==false)
             {
                 if(this.node.y<0) this.camera.y = -350;
                 else this.camera.y=-65;
             }
-            */
+            
             
     }
 
@@ -485,13 +485,13 @@ export default class Player extends cc.Component
             {
                 this.UI.x = this.node.x-290;
             }
-            /*
+            
             if(this.isDead==false)
             {
                 if(this.node.y<0) this.UI.y = -300;
                 else this.UI.y=0;
             }
-            */
+            
     }
 
     UIupdate(){
