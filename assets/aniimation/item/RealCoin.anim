@@ -1,0 +1,55 @@
+{
+  "__type__": "cc.AnimationClip",
+  "_name": "RealCoin",
+  "_objFlags": 0,
+  "_native": "",
+  "_duration": 0.85,
+  "sample": 60,
+  "speed": 1,
+  "wrapMode": 2,
+  "curveData": {
+    "comps": {
+      "cc.Sprite": {
+        "spriteFrame": [
+          {
+            "frame": 0,
+            "value": {
+              "__uuid__": "4b70499c-6423-49a7-9547-b23f3ce8a2fc"
+            }
+          },
+          {
+            "frame": 0.16666666666666666,
+            "value": {
+              "__uuid__": "4a018f94-2bd9-4f89-9c54-e1bc48868bf9"
+            }
+          },
+          {
+            "frame": 0.3333333333333333,
+            "value": {
+              "__uuid__": "7ca0a203-d8b2-4804-8fa2-cad3b094acf6"
+            }
+          },
+          {
+            "frame": 0.5,
+            "value": {
+              "__uuid__": "4b70499c-6423-49a7-9547-b23f3ce8a2fc"
+            }
+          },
+          {
+            "frame": 0.6666666666666666,
+            "value": {
+              "__uuid__": "803bdef1-4773-4538-8577-a9dd1c78d7ce"
+            }
+          },
+          {
+            "frame": 0.8333333333333334,
+            "value": {
+              "__uuid__": "4b70499c-6423-49a7-9547-b23f3ce8a2fc"
+            }
+          }
+        ]
+      }
+    }
+  },
+  "events": []
+}

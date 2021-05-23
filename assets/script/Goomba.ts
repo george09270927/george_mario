@@ -65,7 +65,7 @@ export default class Goomba extends cc.Component {
             this.scheduleOnce(()=>{this.node.runAction(cc.sequence(breakAct,finishAct));cc.audioEngine.playEffect(this.BreakAudio,false);this.createScore100();},0.5); 
 
             this.scheduleOnce(()=>{self.node.destroy();},0.6);
-        }
+        }/*
         else if(other.node.name == "Player"&&other.node.getComponent("Player").nowstate ==other.node.getComponent("Player").marioState.Big ) {
             cc.log("goomba hit mario");
             this.speed=0;
@@ -80,6 +80,7 @@ export default class Goomba extends cc.Component {
 
             this.scheduleOnce(()=>{self.node.destroy();},0.6);
         }
+        */
         else if(other.node.name == "Turtle"&&other.node.getComponent("Turtle").nowstate ==other.node.getComponent("Turtle").turtleState.Turn&&this.dobreak==false) {
             this.dobreak = true;
             cc.log("goomba hit turtle");

@@ -111,7 +111,7 @@ export default class Player extends cc.Component
 
     private countdown;
 
-    private piplineLeftTouch: boolean = false;
+    private Touch: boolean = false;
 
     private isMove: boolean = false;
     private movefinish: boolean = true;
@@ -119,6 +119,8 @@ export default class Player extends cc.Component
     private isMove2: boolean = false;
     private movefinish2: boolean = true;
 
+    private blink = cc.blink(2,6).repeatForever();
+    private isblink = false;
 
 
     start() {
@@ -137,7 +139,7 @@ export default class Player extends cc.Component
         cc.systemEvent.on(cc.SystemEvent.EventType.KEY_DOWN, this.onKeyDown, this);
         cc.systemEvent.on(cc.SystemEvent.EventType.KEY_UP, this.onKeyUp, this);
         this.nowstate = this.marioState.Normal; 
-        //cc.director.getPhysicsManager().debugDrawFlags=1;
+        cc.director.getPhysicsManager().debugDrawFlags=1;
     }
 
     onKeyDown(event) {
@@ -227,12 +229,14 @@ export default class Player extends cc.Component
             this.anim.stop();
             this.anim.play("marioJump");
             this.animstate="marioJump";
+            
         }
         else
         {
             this.anim.stop();
             this.anim.play("marioBigJump");
             this.animstate="marioBigJump";
+            
         }
 
         cc.audioEngine.playEffect(this.JumpAudio,false);
@@ -316,6 +320,7 @@ export default class Player extends cc.Component
                 this.anim.stop();
                 this.animstate=this.anim.play("marioRun");
                 this.animstate="marioRun";
+                    
             }
             
         }
@@ -324,6 +329,7 @@ export default class Player extends cc.Component
             this.anim.stop();
             this.anim.play("marioIdle");
             this.animstate="marioIdle";
+            
         }
         else if(this.isBig==false&&this.isDead==false&&this.playerSpeed!=0&&this.animstate!="marioBigRun"&&this.nowstate==this.marioState.Big)
         {
@@ -332,6 +338,7 @@ export default class Player extends cc.Component
                 this.anim.stop();
                 this.anim.play("marioBigRun");
                 this.animstate="marioBigRun";
+                
             }
         }
         else if(this.isBig==false&&this.isDead==false&&this.playerSpeed==0&&this.animstate!="marioBigIdle"&&this.nowstate==this.marioState.Big)
@@ -340,8 +347,19 @@ export default class Player extends cc.Component
             this.anim.stop();
             this.anim.play("marioBigIdle");
             this.animstate="marioBigIdle";
+            
         }
         
+        if(this.invicible==true&&this.isblink==false) 
+        {
+            this.node.runAction(this.blink);
+            this.isblink=true;
+        }
+        else if(this.invicible==false)
+        {
+            this.node.stopAction(this.blink);
+            this.isblink=false;
+        }
     }
 
     onBeginContact(contact, self, other) {
@@ -374,6 +392,9 @@ export default class Player extends cc.Component
                 cc.log("mario hits the Life");
                 this.lifenum++;
                 cc.audioEngine.playEffect(this.ReserveAudio,false);
+            } else if(other.node.name == "RealCoin") {
+                cc.log("mario hits the RealCoin");
+                this.coinnum++;
             } else if(other.node.name == "Goomba") {
                 cc.log("mario hits the Goomda");
                 if(contact.getWorldManifold().normal.y<0) this.jump2();
@@ -444,8 +465,14 @@ export default class Player extends cc.Component
             {
                 this.camera.x = this.node.x-450;
             }
-            if(this.node.y<0) this.camera.y = -350;
-            else this.camera.y=-65;
+            /*
+            if(this.isDead==false)
+            {
+                if(this.node.y<0) this.camera.y = -350;
+                else this.camera.y=-65;
+            }
+            */
+            
     }
 
     UIfollow(){
@@ -458,8 +485,13 @@ export default class Player extends cc.Component
             {
                 this.UI.x = this.node.x-290;
             }
-            if(this.node.y<0) this.UI.y = -300;
-            else this.UI.y=0;
+            /*
+            if(this.isDead==false)
+            {
+                if(this.node.y<0) this.UI.y = -300;
+                else this.UI.y=0;
+            }
+            */
     }
 
     UIupdate(){
@@ -500,6 +532,7 @@ export default class Player extends cc.Component
 
     turnBig(){
         cc.audioEngine.playEffect(this.PowerUpAudio,false);
+        this.node.runAction(cc.blink(2,6));
         this.anim.stop();
         this.anim.play("marioBigIdle");
         this.animstate="marioBigIdle";
@@ -522,6 +555,7 @@ export default class Player extends cc.Component
 
     turnNormal(){
         cc.audioEngine.playEffect(this.PowerDownAudio,false);
+        this.node.runAction(cc.blink(2,6));
         this.anim.stop();
         this.anim.play("marioIdle");
         this.animstate="marioIdle";
@@ -534,6 +568,8 @@ export default class Player extends cc.Component
         //this.scheduleOnce(()=>{this.nowstate=this.marioState.Normal},15);
         this.node.runAction(cc.sequence(cc.moveBy(1,0,20),cc.moveBy(1,0,-20)));
         this.scheduleOnce(()=>{
+            this.invicible=true;
+            this.scheduleOnce(()=>{this.invicible=false},5);
             cc.director.getPhysicsManager().enabled = true;
             this.node.getComponent(cc.PhysicsBoxCollider).enabled = true;
             this.normalfinish=true;
@@ -556,10 +592,14 @@ export default class Player extends cc.Component
             this.node.y = 50;
             this.node.runAction(cc.moveBy(1,0,25));
             cc.audioEngine.playEffect(this.PowerDownAudio,false);
-            this.scheduleOnce(()=>{cc.director.getPhysicsManager().enabled = true;cc.audioEngine.playMusic(this.Bgm1,true);},1);
-            this.schedule(this.countdown,1);
-            this.isMove=false;
-            this.movefinish=true;
+            this.scheduleOnce(()=>{
+                cc.director.getPhysicsManager().enabled = true;
+                cc.audioEngine.playMusic(this.Bgm1,true);
+                this.schedule(this.countdown,1);
+                this.isMove=false;
+                this.movefinish=true;
+            },1);
+            
         },2);
     }
 
@@ -577,10 +617,13 @@ export default class Player extends cc.Component
             this.node.y = -50;
             this.node.runAction(cc.moveBy(1,0,-25));
             cc.audioEngine.playEffect(this.PowerDownAudio,false);
-            this.scheduleOnce(()=>{cc.director.getPhysicsManager().enabled = true;cc.audioEngine.playMusic(this.Bgm1,true);},1);
-            this.schedule(this.countdown,1);
-            this.isMove2=false;
-            this.movefinish2=true;
+            this.scheduleOnce(()=>{
+                cc.director.getPhysicsManager().enabled = true;
+                cc.audioEngine.playMusic(this.Bgm2,true);
+                this.schedule(this.countdown,1);
+                this.isMove2=false;
+                this.movefinish2=true;
+            },1);
         },2);
     }
 
