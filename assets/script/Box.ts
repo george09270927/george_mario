@@ -17,6 +17,18 @@ export default class Box extends cc.Component {
   @property(cc.Prefab)
   private bigPrefab: cc.Prefab = null;
 
+  @property(cc.Prefab)
+  private lifePrefab: cc.Prefab = null;
+
+  @property(cc.Prefab)
+  private Score100Prefab: cc.Prefab = null;
+
+  @property(cc.Prefab)
+  private Score200Prefab: cc.Prefab = null;
+
+  @property(cc.Prefab)
+  private Score1000Prefab: cc.Prefab = null;
+
 
   @property(cc.Prefab)
   private breakPrefab: cc.Prefab = null;
@@ -32,6 +44,9 @@ export default class Box extends cc.Component {
   private moveSpeed: number = 100;
 
   private springVelocity: number = 320;
+
+
+  private coinHittenNum: number = 0;
 
   start() {
     this.anim = this.getComponent(cc.Animation);
@@ -56,10 +71,33 @@ export default class Box extends cc.Component {
         this.anim.stop();
         this.anim.play("hittencoinbox");
         this.createCoin();
+        other.node.getComponent("Player").coinnum++;
         cc.log("hits coinbox");
         this.isTouched=true;
+        this.createScore200();       
       }
-    } 
+    }
+    else if(self.node.name == "manycoinbox"&&other.node.name=="Player"&&this.isTouched==false) {
+      if(contact.getWorldManifold().normal.y<0)
+      {
+        let action = cc.sequence(cc.moveBy(0.2,0,10),cc.moveBy(0.2,0,-10));
+        this.node.runAction(action);
+
+        this.createCoin();
+        other.node.getComponent("Player").coinnum++;
+        this.createScore200();
+        this.coinHittenNum++;  
+        if(this.coinHittenNum==15)
+        {
+          this.isTouched=true;
+          this.anim.stop();
+          this.anim.play("hittencoinbox");
+        }
+
+        cc.log("hits coinbox");
+        
+      }
+    }  
     else if(self.node.name == "bigbox" && other.node.name=="Player" && this.isTouched==false) {
       if(contact.getWorldManifold().normal.y<0)
       {
@@ -68,7 +106,7 @@ export default class Box extends cc.Component {
         this.anim.stop();
         this.anim.play("hittencoinbox");
         //this.createBig();
-        this.scheduleOnce(()=>{this.createBig()},0.5);
+        this.scheduleOnce(()=>{this.createBig()},0.3);
         cc.log("hits bigbox");
         this.isTouched=true;
       }
@@ -81,6 +119,20 @@ export default class Box extends cc.Component {
         this.isTouched=true;
         this.node.destroy();
       }
+    }
+    else if(self.node.name == "invisiblelifebox" && other.node.name=="Player" && this.isTouched==false) {
+      if(contact.getWorldManifold().normal.y<0)
+      {
+        this.anim.stop();
+        this.anim.play("hittencoinbox");
+        let action = cc.sequence(cc.moveBy(0.2,0,10),cc.moveBy(0.2,0,-10));
+        this.node.runAction(action);
+        
+        this.scheduleOnce(()=>{this.createLife()},0.3);
+        cc.log("hits invisiblelifebox");
+        this.isTouched=true;
+      }
+      else contact.disabled = true;
     }
     
   }
@@ -112,9 +164,31 @@ export default class Box extends cc.Component {
     cc.audioEngine.playEffect(this.BigAudio,false);
   }
 
+  private createLife() {
+    let big = cc. instantiate(this.lifePrefab);
+    big.getComponent('Life').init(this.node);
+    cc.audioEngine.playEffect(this.BigAudio,false);
+  }
+
   private createBreak() {
+    this.createScore100();
     let big = cc. instantiate(this.breakPrefab);
     big.getComponent('Break').init(this.node);
     cc.audioEngine.playEffect(this.BreakAudio,false);
+  }
+
+  private createScore100() {
+    let big = cc. instantiate(this.Score100Prefab);
+    big.getComponent('Score100').init(this.node);
+  }
+
+  private createScore200() {
+    let big = cc. instantiate(this.Score200Prefab);
+    big.getComponent('Score200').init(this.node);
+  }
+
+  private createScore1000() {
+    let big = cc. instantiate(this.Score1000Prefab);
+    big.getComponent('Score1000').init(this.node);
   }
 }

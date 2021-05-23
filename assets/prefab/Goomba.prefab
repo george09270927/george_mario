@@ -181,6 +181,9 @@
     "BreakAudio": {
       "__uuid__": "cefbe3bc-979d-4c6e-891c-3064895462a8"
     },
+    "Score100Prefab": {
+      "__uuid__": "ae70d648-2b93-4e07-81c9-7b2f763c6dd6"
+    },
     "_id": ""
   },
   {
@@ -209,7 +212,7 @@
       "__id__": 1
     },
     "asset": {
-      "__id__": 0
+      "__uuid__": "8801bf96-a0b8-43ed-afe5-4091befa95c4"
     },
     "fileId": "efy7SjcDZPTqSuhXkN1ttj",
     "sync": false

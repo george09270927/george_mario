@@ -215,6 +215,15 @@
     "bigPrefab": {
       "__uuid__": "c8891316-56d1-4067-8449-03b48b0aa346"
     },
+    "Score100Prefab": {
+      "__uuid__": "ae70d648-2b93-4e07-81c9-7b2f763c6dd6"
+    },
+    "Score200Prefab": {
+      "__uuid__": "8ec7c245-063f-41f1-b68a-7fef4a41ed4d"
+    },
+    "Score1000Prefab": {
+      "__uuid__": "4c565f19-2546-4a6f-b3ec-8288c391b3e6"
+    },
     "breakPrefab": {
       "__uuid__": "7fd6601b-edfb-474d-9d86-6a75b22fb921"
     },
@@ -226,7 +235,7 @@
       "__id__": 1
     },
     "asset": {
-      "__id__": 0
+      "__uuid__": "1ec308e6-442b-4069-a6a2-a3aefa3c6ba3"
     },
     "fileId": "90ka4W5MhIbrftriNK1oo0",
     "sync": false

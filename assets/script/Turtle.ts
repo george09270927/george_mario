@@ -6,6 +6,9 @@ export default class Turtle extends cc.Component {
     @property({type:cc.AudioClip})
     private BreakAudio: cc.AudioClip=null;
 
+    @property(cc.Prefab)
+    private Score100Prefab: cc.Prefab = null;
+
     private speed = -60;
 
     private anim: cc.Animation = null;
@@ -13,6 +16,8 @@ export default class Turtle extends cc.Component {
     private nowstate;
 
     private callback;
+
+    private dobreak = false;
 
     private turtleState= cc.Enum({
         Normal: 0,
@@ -90,7 +95,7 @@ export default class Turtle extends cc.Component {
                 let fadeAct = cc.fadeOut(0.8);
                 let breakAct = cc.spawn(moveAct,fadeAct);
                 let finishAct = cc.callFunc(()=>{this.node.destroy();});
-                this.scheduleOnce(()=>{this.node.runAction(cc.sequence(breakAct,finishAct));cc.audioEngine.playEffect(this.BreakAudio,false);},0.1); 
+                this.scheduleOnce(()=>{this.node.runAction(cc.sequence(breakAct,finishAct));cc.audioEngine.playEffect(this.BreakAudio,false);this.createScore100();},0.1); 
 
                 this.scheduleOnce(()=>{self.node.destroy();},0.7);
             }
@@ -116,15 +121,16 @@ export default class Turtle extends cc.Component {
         else if(contact.getWorldManifold().normal.x!=0)
         {
             cc.log("change");
-            if(this.nowstate == this.turtleState.Turn)
+            if(this.nowstate == this.turtleState.Turn&&this.dobreak==false)
             {
+                this.dobreak=true;
                 this.speed=0;
                 let moveAct = null;
                 moveAct = cc.callFunc(()=>{this.anim.play("boxbreak")});
                 let fadeAct = cc.fadeOut(0.8);
                 let breakAct = cc.spawn(moveAct,fadeAct);
                 let finishAct = cc.callFunc(()=>{this.node.destroy();});
-                this.scheduleOnce(()=>{this.node.runAction(cc.sequence(breakAct,finishAct));cc.audioEngine.playEffect(this.BreakAudio,false);},0.1); 
+                this.scheduleOnce(()=>{this.node.runAction(cc.sequence(breakAct,finishAct));cc.audioEngine.playEffect(this.BreakAudio,false);this.createScore100();},0.1); 
                 this.scheduleOnce(()=>{self.node.destroy();},0.7);
             }
             else if(contact.getWorldManifold().normal.x>0&&this.speed>0)
@@ -147,4 +153,8 @@ export default class Turtle extends cc.Component {
         this.node.getComponent(cc.RigidBody).linearVelocity = cc.v2(0, 0);
     }
     */
+    private createScore100() {
+        let big = cc. instantiate(this.Score100Prefab);
+        big.getComponent('Score100').init(this.node);
+    }
 }

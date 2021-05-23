@@ -1,7 +1,7 @@
 const {ccclass, property} = cc._decorator;
 
 @ccclass
-export default class Big extends cc.Component {
+export default class Life extends cc.Component {
 
     private speed = 70;
 
@@ -13,7 +13,7 @@ export default class Big extends cc.Component {
     public init(node: cc.Node) 
     {
         this.setInitPos(node);
-        this.bigMove();
+        this.LifeMove();
     }
 
     //this function sets the bullet's initial position when it is reused.
@@ -28,17 +28,17 @@ export default class Big extends cc.Component {
 
     update(dt)
     {
-        this.bigMove();
+        this.LifeMove();
     }
     //make the bullet move from current position
-    private bigMove()
+    private LifeMove()
     {
         this.node.getComponent(cc.RigidBody).linearVelocity = cc.v2(this.speed, 0);
     }
 
     onBeginContact(contact, self, other) {
         if(other.node.name == "Player") {
-            cc.log("big hit mario");
+            cc.log("Life hit mario");
             self.node.destroy();
         }
         

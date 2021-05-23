@@ -1,5 +1,11 @@
 const {ccclass, property} = cc._decorator;
 
+
+export module Global {
+    export let scorenum : number = 0;
+}
+
+
 @ccclass
 export default class Player extends cc.Component 
 {
@@ -17,6 +23,12 @@ export default class Player extends cc.Component
 
     @property(cc.Node)
     private lifeText: cc.Node = null;
+
+    @property(cc.Node)
+    private coinText: cc.Node = null;
+
+    @property(cc.Node)
+    private scoreText: cc.Node = null;
     
 
     @property({type:cc.AudioClip})
@@ -42,6 +54,12 @@ export default class Player extends cc.Component
 
     @property({type:cc.AudioClip})
     private StompAudio: cc.AudioClip=null;
+
+    @property({type:cc.AudioClip})
+    private ReserveAudio: cc.AudioClip=null;
+
+    @property(cc.Prefab)
+    private Score1000Prefab: cc.Prefab = null;
 
     private nowstate;
 
@@ -83,11 +101,23 @@ export default class Player extends cc.Component
     //private invicible: boolean = true;
     private invicible: boolean = false;
 
-    private timenum: number = 10;
+    private timenum: number = 300;
 
     private lifenum: number = 5;
 
+    private coinnum: number = 0;
+
+    //public scorenum: number = 0;
+
     private countdown;
+
+    private piplineLeftTouch: boolean = false;
+
+    private isMove: boolean = false;
+    private movefinish: boolean = true;
+
+    private isMove2: boolean = false;
+    private movefinish2: boolean = true;
 
 
 
@@ -152,6 +182,16 @@ export default class Player extends cc.Component
         {
             this.node.getComponent(cc.PhysicsBoxCollider).size.height = 16;
             this.node.scaleX = 1;
+            return;
+        }
+
+        else if(this.isMove)
+        {
+            return;
+        }
+
+        else if(this.isMove2)
+        {
             return;
         }
 
@@ -237,8 +277,17 @@ export default class Player extends cc.Component
         //cc.log(this.nowstate);
         if(this.isDead&&this.deadfinish)
         {
-            this.reborn();
-            this.deadfinish=false;
+            if(this.lifenum>0)
+            {
+                this.lifenum--;
+                this.reborn();
+                this.deadfinish=false;
+            }
+            else 
+            {
+                this.reborn();
+                this.deadfinish=false;
+            }
         }
         else if(this.isBig&&this.bigfinish)
         {
@@ -249,6 +298,16 @@ export default class Player extends cc.Component
         {
             this.turnNormal();
             this.normalfinish=false;
+        }
+        else if(this.isMove&&this.movefinish)
+        {
+            this.turnMove();
+            this.movefinish=false;
+        }
+        else if(this.isMove2&&this.movefinish2)
+        {
+            this.turnMove2();
+            this.movefinish2=false;
         }
         else if(this.isBig==false&&this.isDead==false&&this.playerSpeed!=0&&this.animstate!="marioRun"&&this.nowstate==this.marioState.Normal)
         {
@@ -293,21 +352,28 @@ export default class Player extends cc.Component
                 this.onGround = true;
                 
                 //cc.log( this.node.getComponent(cc.PhysicsBoxCollider).size);
-            } else if(other.node.name == "coinbox") {
+            } else if(other.node.name == "coinbox"&&contact.getWorldManifold().normal.y<0) {
                 cc.log("mario hits the coinbox");
                 this.onGround = true;
-            } else if(other.node.name == "bigbox") {
+            } else if(other.node.name == "manycoinbox"&&contact.getWorldManifold().normal.y<0) {
+                cc.log("mario hits the coinbox");
+                this.onGround = true;
+            } else if(other.node.name == "bigbox"&&contact.getWorldManifold().normal.y<0) {
                 cc.log("mario hits the bigbox");
                 this.onGround = true;
-            } else if(other.node.name == "normalbrick") {
+            } else if(other.node.name == "normalbrick"&&contact.getWorldManifold().normal.y<0) {
                 cc.log("mario hits the coinbox");
                 this.onGround = true;
             } else if(other.node.name == "Big") {
                 cc.log("mario hits the Big");
-                
+                this.createScore1000();
                 this.node.getComponent(cc.PhysicsBoxCollider).enabled = false;
                 this.node.getComponent(cc.PhysicsBoxCollider).size.height = 28;
                 this.isBig = true;
+            } else if(other.node.name == "Life") {
+                cc.log("mario hits the Life");
+                this.lifenum++;
+                cc.audioEngine.playEffect(this.ReserveAudio,false);
             } else if(other.node.name == "Goomba") {
                 cc.log("mario hits the Goomda");
                 if(contact.getWorldManifold().normal.y<0) this.jump2();
@@ -357,6 +423,14 @@ export default class Player extends cc.Component
                 }
                 else this.isDead = true;
             }
+            else if(other.node.name == "pipelineLeft"&&contact.getWorldManifold().normal.x>0&&this.onGround==true)
+            {
+                this.isMove=true;
+            }
+            else if(other.node.name == "pipelineUp") {
+                this.onGround = true;
+                if((this.node.x-other.node.x)*(this.node.x-other.node.x)<80)  this.isMove2=true;
+            }
         }
     }
 
@@ -370,6 +444,8 @@ export default class Player extends cc.Component
             {
                 this.camera.x = this.node.x-450;
             }
+            if(this.node.y<0) this.camera.y = -350;
+            else this.camera.y=-65;
     }
 
     UIfollow(){
@@ -382,12 +458,15 @@ export default class Player extends cc.Component
             {
                 this.UI.x = this.node.x-290;
             }
+            if(this.node.y<0) this.UI.y = -300;
+            else this.UI.y=0;
     }
 
     UIupdate(){
         this.timeText.getComponent(cc.Label).string = "" + this.timenum;
         this.lifeText.getComponent(cc.Label).string = "" + this.lifenum;
-        
+        this.coinText.getComponent(cc.Label).string = "" + this.coinnum;
+        this.scoreText.getComponent(cc.Label).string = (Array(7).join('0') + Global.scorenum).slice(-7);
     }
 
 
@@ -463,7 +542,51 @@ export default class Player extends cc.Component
         },2);
     }
 
+    turnMove()
+    {
+        cc.audioEngine.pauseMusic();
+        cc.audioEngine.playEffect(this.PowerDownAudio,false);
+        cc.director.getPhysicsManager().enabled = false;
+        this.unschedule(this.countdown);
+  
+        this.node.runAction(cc.moveBy(1,20,0));
 
+        this.scheduleOnce(()=>{
+            this.node.x = 3055;
+            this.node.y = 50;
+            this.node.runAction(cc.moveBy(1,0,25));
+            cc.audioEngine.playEffect(this.PowerDownAudio,false);
+            this.scheduleOnce(()=>{cc.director.getPhysicsManager().enabled = true;cc.audioEngine.playMusic(this.Bgm1,true);},1);
+            this.schedule(this.countdown,1);
+            this.isMove=false;
+            this.movefinish=true;
+        },2);
+    }
 
+    turnMove2()
+    {
+        cc.audioEngine.pauseMusic();
+        cc.audioEngine.playEffect(this.PowerDownAudio,false);
+        cc.director.getPhysicsManager().enabled = false;
+        this.unschedule(this.countdown);
+  
+        this.node.runAction(cc.moveBy(1,0,-20));
+
+        this.scheduleOnce(()=>{
+            this.node.x = 2780;
+            this.node.y = -50;
+            this.node.runAction(cc.moveBy(1,0,-25));
+            cc.audioEngine.playEffect(this.PowerDownAudio,false);
+            this.scheduleOnce(()=>{cc.director.getPhysicsManager().enabled = true;cc.audioEngine.playMusic(this.Bgm1,true);},1);
+            this.schedule(this.countdown,1);
+            this.isMove2=false;
+            this.movefinish2=true;
+        },2);
+    }
+
+    private createScore1000() {
+        let big = cc. instantiate(this.Score1000Prefab);
+        big.getComponent('Score1000').init(this.node);
+      }
 
 }

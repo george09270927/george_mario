@@ -13,7 +13,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "coinbox",
+    "_name": "manycoinbox",
     "_objFlags": 0,
     "_parent": null,
     "_children": [],
@@ -60,7 +60,7 @@
       "__type__": "TypedArray",
       "ctor": "Float64Array",
       "array": [
-        350,
+        243.218,
         88,
         0,
         0,
@@ -232,9 +232,9 @@
       "__id__": 1
     },
     "asset": {
-      "__uuid__": "b8da24d0-b5c1-439d-ab35-12528469dbf6"
+      "__uuid__": "533bd5c1-990b-45c0-82d7-f7abb41e4e68"
     },
-    "fileId": "b1isGoanRMdKTIwb19rPSW",
+    "fileId": "36XjHEaGFDbYTkxotitgEw",
     "sync": false
   }
 ]

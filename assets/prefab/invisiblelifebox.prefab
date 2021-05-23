@@ -13,7 +13,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "coinbox",
+    "_name": "invisiblelifebox",
     "_objFlags": 0,
     "_parent": null,
     "_children": [],
@@ -60,8 +60,8 @@
       "__type__": "TypedArray",
       "ctor": "Float64Array",
       "array": [
-        350,
-        88,
+        174.853,
+        91,
         0,
         0,
         0,
@@ -151,9 +151,7 @@
     ],
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
-    "_spriteFrame": {
-      "__uuid__": "b66126b2-aea9-4b73-8405-60421dab85cd"
-    },
+    "_spriteFrame": null,
     "_type": 0,
     "_sizeMode": 1,
     "_fillType": 0,
@@ -165,9 +163,7 @@
     "_fillStart": 0,
     "_fillRange": 0,
     "_isTrimmedMode": true,
-    "_atlas": {
-      "__uuid__": "b4b5325e-e2cb-47c8-84a0-2c03aeb1ae7f"
-    },
+    "_atlas": null,
     "_id": ""
   },
   {
@@ -178,18 +174,14 @@
       "__id__": 1
     },
     "_enabled": true,
-    "_defaultClip": {
-      "__uuid__": "81a4b4ae-90e7-4884-8df6-da3300f03be0"
-    },
+    "_defaultClip": null,
     "_clips": [
-      {
-        "__uuid__": "81a4b4ae-90e7-4884-8df6-da3300f03be0"
-      },
+      null,
       {
         "__uuid__": "f609268e-6a6d-4a54-b293-561c53ffe003"
       }
     ],
-    "playOnLoad": true,
+    "playOnLoad": false,
     "_id": ""
   },
   {
@@ -215,11 +207,17 @@
     "bigPrefab": {
       "__uuid__": "c8891316-56d1-4067-8449-03b48b0aa346"
     },
+    "lifePrefab": {
+      "__uuid__": "c3d346f5-b803-4149-96a7-e2eb6ac34d39"
+    },
     "Score100Prefab": {
       "__uuid__": "ae70d648-2b93-4e07-81c9-7b2f763c6dd6"
     },
     "Score200Prefab": {
       "__uuid__": "8ec7c245-063f-41f1-b68a-7fef4a41ed4d"
+    },
+    "Score1000Prefab": {
+      "__uuid__": "4c565f19-2546-4a6f-b3ec-8288c391b3e6"
     },
     "breakPrefab": {
       "__uuid__": "7fd6601b-edfb-474d-9d86-6a75b22fb921"
@@ -232,9 +230,9 @@
       "__id__": 1
     },
     "asset": {
-      "__uuid__": "b8da24d0-b5c1-439d-ab35-12528469dbf6"
+      "__id__": 0
     },
-    "fileId": "b1isGoanRMdKTIwb19rPSW",
+    "fileId": "f7FF4ISA9P1Z3eDHzoB17B",
     "sync": false
   }
 ]
