@@ -3,7 +3,13 @@ const { ccclass, property } = cc._decorator;
 @ccclass
 export default class Box extends cc.Component {
   @property({ type: cc.AudioClip })
-  soundEffect: cc.AudioClip = null;
+  BigAudio: cc.AudioClip = null;
+
+  @property({ type: cc.AudioClip })
+  CoinAudio: cc.AudioClip = null;
+
+  @property({type:cc.AudioClip})
+  BreakAudio: cc.AudioClip=null;
 
   @property(cc.Prefab)
   private coinPrefab: cc.Prefab = null;
@@ -97,15 +103,18 @@ export default class Box extends cc.Component {
   private createCoin() {
     let coin = cc.instantiate(this.coinPrefab);
     coin.getComponent('Coin').init(this.node);
+    cc.audioEngine.playEffect(this.CoinAudio,false);
   }
 
   private createBig() {
     let big = cc. instantiate(this.bigPrefab);
     big.getComponent('Big').init(this.node);
+    cc.audioEngine.playEffect(this.BigAudio,false);
   }
 
   private createBreak() {
     let big = cc. instantiate(this.breakPrefab);
     big.getComponent('Break').init(this.node);
+    cc.audioEngine.playEffect(this.BreakAudio,false);
   }
 }

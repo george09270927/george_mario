@@ -60,8 +60,8 @@
       "__type__": "TypedArray",
       "ctor": "Float64Array",
       "array": [
-        424.003,
-        87.994,
+        350,
+        88,
         0,
         0,
         0,
@@ -200,12 +200,24 @@
       "__id__": 1
     },
     "_enabled": true,
-    "soundEffect": null,
+    "BigAudio": {
+      "__uuid__": "8430befe-5dd1-406b-9d41-f07c04b92bfd"
+    },
+    "CoinAudio": {
+      "__uuid__": "144b87b2-dc5d-4fc8-9e3f-773066269bcf"
+    },
+    "BreakAudio": {
+      "__uuid__": "cefbe3bc-979d-4c6e-891c-3064895462a8"
+    },
     "coinPrefab": {
       "__uuid__": "83338643-2668-48de-b178-a414f892c662"
     },
-    "bigPrefab": null,
-    "breakPrefab": null,
+    "bigPrefab": {
+      "__uuid__": "c8891316-56d1-4067-8449-03b48b0aa346"
+    },
+    "breakPrefab": {
+      "__uuid__": "7fd6601b-edfb-474d-9d86-6a75b22fb921"
+    },
     "_id": ""
   },
   {
@@ -214,9 +226,9 @@
       "__id__": 1
     },
     "asset": {
-      "__uuid__": "6d67abe2-a306-4bbe-a48f-59c7a4a217ad"
+      "__id__": 0
     },
-    "fileId": "bfkLjdKMFOhKAkXlqxWM1z",
+    "fileId": "b1isGoanRMdKTIwb19rPSW",
     "sync": false
   }
 ]

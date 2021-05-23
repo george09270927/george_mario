@@ -12,6 +12,37 @@ export default class Player extends cc.Component
     @property(cc.Node)
     private UI: cc.Node = null;
 
+    @property(cc.Node)
+    private timeText: cc.Node = null;
+
+    @property(cc.Node)
+    private lifeText: cc.Node = null;
+    
+
+    @property({type:cc.AudioClip})
+    private JumpAudio: cc.AudioClip=null;
+
+    @property({type:cc.AudioClip})
+    private LoseOneLifeAudio: cc.AudioClip=null;
+
+    @property({type:cc.AudioClip})
+    private PowerUpAudio: cc.AudioClip=null;
+
+    @property({type:cc.AudioClip})
+    private PowerDownAudio: cc.AudioClip=null;
+
+    @property({type:cc.AudioClip})
+    private Bgm1: cc.AudioClip=null;
+
+    @property({type:cc.AudioClip})
+    private Bgm2: cc.AudioClip=null;
+
+    @property({type:cc.AudioClip})
+    private KickAudio: cc.AudioClip=null;
+
+    @property({type:cc.AudioClip})
+    private StompAudio: cc.AudioClip=null;
+
     private nowstate;
 
     private marioState= cc.Enum({
@@ -52,12 +83,26 @@ export default class Player extends cc.Component
     //private invicible: boolean = true;
     private invicible: boolean = false;
 
+    private timenum: number = 10;
+
+    private lifenum: number = 5;
+
+    private countdown;
+
+
+
     start() {
         this.anim = this.getComponent(cc.Animation);
+        cc.audioEngine.playMusic(this.Bgm1,true);
+        this.countdown = function(){
+            if(this.timenum>0)this.timenum--;
+            //cc.log(this.timenum);
+        }
+        this.schedule(this.countdown,1);
       }
 
     onLoad() {
-       
+        
         cc.director.getPhysicsManager().enabled = true;        	
         cc.systemEvent.on(cc.SystemEvent.EventType.KEY_DOWN, this.onKeyDown, this);
         cc.systemEvent.on(cc.SystemEvent.EventType.KEY_UP, this.onKeyUp, this);
@@ -136,6 +181,46 @@ export default class Player extends cc.Component
 
         // Method II: Change velocity of rigidbody
         this.getComponent(cc.RigidBody).linearVelocity = cc.v2(0, 320);
+
+        if(this.nowstate==this.marioState.Normal)
+        {
+            this.anim.stop();
+            this.anim.play("marioJump");
+            this.animstate="marioJump";
+        }
+        else
+        {
+            this.anim.stop();
+            this.anim.play("marioBigJump");
+            this.animstate="marioBigJump";
+        }
+
+        cc.audioEngine.playEffect(this.JumpAudio,false);
+    }
+
+    private jump2() {
+        this.onGround = false;
+
+        // Method I: Apply Force to rigidbody
+        //this.getComponent(cc.RigidBody).applyForceToCenter(new cc.Vec2(0, 1500000), true);
+
+        // Method II: Change velocity of rigidbody
+        this.getComponent(cc.RigidBody).linearVelocity = cc.v2(0, 320);
+
+        if(this.nowstate==this.marioState.Normal)
+        {
+            this.anim.stop();
+            this.anim.play("marioJump");
+            this.animstate="marioJump";
+        }
+        else
+        {
+            this.anim.stop();
+            this.anim.play("marioBigJump");
+            this.animstate="marioBigJump";
+        }
+
+        cc.audioEngine.playEffect(this.KickAudio,false);
     }
 
     private createBullet() {
@@ -148,6 +233,7 @@ export default class Player extends cc.Component
         this.playerMovement(dt);
         this.camerafollow();
         this.UIfollow();
+        this.UIupdate();
         //cc.log(this.nowstate);
         if(this.isDead&&this.deadfinish)
         {
@@ -166,9 +252,13 @@ export default class Player extends cc.Component
         }
         else if(this.isBig==false&&this.isDead==false&&this.playerSpeed!=0&&this.animstate!="marioRun"&&this.nowstate==this.marioState.Normal)
         {
-            this.anim.stop();
-            this.animstate=this.anim.play("marioRun");
-            this.animstate="marioRun";
+            if(this.onGround)
+            {
+                this.anim.stop();
+                this.animstate=this.anim.play("marioRun");
+                this.animstate="marioRun";
+            }
+            
         }
         else if(this.isBig==false&&this.isDead==false&&this.playerSpeed==0&&this.animstate!="marioIdle"&&this.nowstate==this.marioState.Normal)
         {
@@ -178,9 +268,12 @@ export default class Player extends cc.Component
         }
         else if(this.isBig==false&&this.isDead==false&&this.playerSpeed!=0&&this.animstate!="marioBigRun"&&this.nowstate==this.marioState.Big)
         {
-            this.anim.stop();
-            this.anim.play("marioBigRun");
-            this.animstate="marioBigRun";
+            if(this.onGround)
+            {
+                this.anim.stop();
+                this.anim.play("marioBigRun");
+                this.animstate="marioBigRun";
+            }
         }
         else if(this.isBig==false&&this.isDead==false&&this.playerSpeed==0&&this.animstate!="marioBigIdle"&&this.nowstate==this.marioState.Big)
         {
@@ -199,7 +292,7 @@ export default class Player extends cc.Component
                 cc.log("mario hits the main ground");
                 this.onGround = true;
                 
-                cc.log( this.node.getComponent(cc.PhysicsBoxCollider).size);
+                //cc.log( this.node.getComponent(cc.PhysicsBoxCollider).size);
             } else if(other.node.name == "coinbox") {
                 cc.log("mario hits the coinbox");
                 this.onGround = true;
@@ -211,12 +304,13 @@ export default class Player extends cc.Component
                 this.onGround = true;
             } else if(other.node.name == "Big") {
                 cc.log("mario hits the Big");
+                
                 this.node.getComponent(cc.PhysicsBoxCollider).enabled = false;
                 this.node.getComponent(cc.PhysicsBoxCollider).size.height = 28;
                 this.isBig = true;
             } else if(other.node.name == "Goomba") {
                 cc.log("mario hits the Goomda");
-                if(contact.getWorldManifold().normal.y<0) this.jump();
+                if(contact.getWorldManifold().normal.y<0) this.jump2();
                 else 
                 {
                     if(this.nowstate==this.marioState.Big)
@@ -240,9 +334,10 @@ export default class Player extends cc.Component
                 
             }  else if(other.node.name == "Turtle") {
                 cc.log("mario hits the Turtle");
-                if(contact.getWorldManifold().normal.y<0) this.jump();
+                if(contact.getWorldManifold().normal.y<0) this.jump2();
                 else if(other.node.getComponent("Turtle").nowstate!=other.node.getComponent("Turtle").turtleState.Hitten)
                 {
+                    
                     if(this.nowstate==this.marioState.Big)
                     {
                         this.node.getComponent(cc.PhysicsBoxCollider).enabled = false;
@@ -251,6 +346,7 @@ export default class Player extends cc.Component
                     }
                     else if(this.invicible==false) this.isDead = true;
                 }
+                else cc.audioEngine.playEffect(this.StompAudio,false);
             } else if(other.node.name == "worldrange")
             {
                 if(this.nowstate==this.marioState.Big) 
@@ -266,9 +362,9 @@ export default class Player extends cc.Component
 
     camerafollow(){
         var scene = cc.director.getScene();
-            if(this.node.x<=450)
+            if(this.node.x<=290)
             {
-                this.camera.x=0;
+                this.camera.x=-160;
             }
             else
             {
@@ -278,22 +374,33 @@ export default class Player extends cc.Component
 
     UIfollow(){
         var scene = cc.director.getScene();
-            if(this.node.x<=450)
+            if(this.node.x<=290)
             {
                 this.UI.x=0;
             }
             else
             {
-                this.UI.x = this.node.x-450;
+                this.UI.x = this.node.x-290;
             }
+    }
+
+    UIupdate(){
+        this.timeText.getComponent(cc.Label).string = "" + this.timenum;
+        this.lifeText.getComponent(cc.Label).string = "" + this.lifenum;
+        
     }
 
 
     reborn(){
+        cc.audioEngine.pauseMusic();
+        cc.audioEngine.playMusic(this.LoseOneLifeAudio,false);
         cc.log("reborn");
         this.anim.stop();
         this.animstate=this.anim.play("marioDead");
-        cc.director.getPhysicsManager().enabled = false;  
+        cc.director.getPhysicsManager().enabled = false;
+
+        this.unschedule(this.countdown);
+          
         this.node.runAction(cc.sequence(cc.moveBy(1,0,20),cc.moveBy(1,0,-500)));
 
         // Return to reborn position
@@ -307,14 +414,20 @@ export default class Player extends cc.Component
             this.animstate="marioIdle";
             this.deadfinish=true;
             this.isDead=false;
-            },2);
+            cc.audioEngine.playMusic(this.Bgm1,true);
+            this.schedule(this.countdown,1);
+            },3);
     }
 
     turnBig(){
+        cc.audioEngine.playEffect(this.PowerUpAudio,false);
         this.anim.stop();
         this.anim.play("marioBigIdle");
         this.animstate="marioBigIdle";
         cc.director.getPhysicsManager().enabled = false;
+
+        this.unschedule(this.countdown);
+
         cc.log("turnbig");
         this.nowstate=this.marioState.Big;
         //this.scheduleOnce(()=>{this.nowstate=this.marioState.Normal},15);
@@ -324,14 +437,19 @@ export default class Player extends cc.Component
             this.node.getComponent(cc.PhysicsBoxCollider).enabled = true;
             this.bigfinish=true;
             this.isBig=false;
+            this.schedule(this.countdown,1);
         },2);
     }
 
     turnNormal(){
+        cc.audioEngine.playEffect(this.PowerDownAudio,false);
         this.anim.stop();
         this.anim.play("marioIdle");
         this.animstate="marioIdle";
         cc.director.getPhysicsManager().enabled = false;
+
+        this.unschedule(this.countdown);
+
         cc.log("turnnormal");
         this.nowstate=this.marioState.Normal;
         //this.scheduleOnce(()=>{this.nowstate=this.marioState.Normal},15);
@@ -341,10 +459,8 @@ export default class Player extends cc.Component
             this.node.getComponent(cc.PhysicsBoxCollider).enabled = true;
             this.normalfinish=true;
             this.isNormal=false;
+            this.schedule(this.countdown,1);
         },2);
-        this.scheduleOnce(()=>{
-            
-        },4);
     }
 
 

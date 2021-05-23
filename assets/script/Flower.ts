@@ -19,8 +19,8 @@ export default class Flower extends cc.Component {
     update(dt)
     {
         
-        cc.log(this.y);
-        cc.log(this.node.y);
+        //cc.log(this.y);
+        //cc.log(this.node.y);
         if(this.node.y-this.y>34&&this.flag1==false) 
         {
             this.tmpspeed = this.speed;

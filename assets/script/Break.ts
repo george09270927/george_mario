@@ -3,6 +3,9 @@ const {ccclass, property} = cc._decorator;
 @ccclass
 export default class Break extends cc.Component {
 
+    
+
+
     private anim: cc.Animation = null;
     start() {
         this.anim = this.getComponent(cc.Animation);

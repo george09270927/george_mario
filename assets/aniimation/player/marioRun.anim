@@ -3,7 +3,7 @@
   "_name": "marioRun",
   "_objFlags": 0,
   "_native": "",
-  "_duration": 1.9,
+  "_duration": 0.6,
   "sample": 60,
   "speed": 1,
   "wrapMode": 2,
@@ -12,45 +12,27 @@
       "cc.Sprite": {
         "spriteFrame": [
           {
-            "frame": 0,
+            "frame": 0.016666666666666666,
             "value": {
-              "__uuid__": "cb4ae82c-0444-407e-a580-cb591c38261c"
+              "__uuid__": "9b070f64-eb5c-41e7-98a3-7bb9dc0dd7c9"
             }
           },
           {
-            "frame": 0.31666666666666665,
+            "frame": 0.21666666666666667,
             "value": {
-              "__uuid__": "e4581ffa-0efc-4eea-95f6-b58118904113"
+              "__uuid__": "60555b62-7d66-4584-aac1-b0a22983e2df"
             }
           },
           {
-            "frame": 0.6,
+            "frame": 0.4,
             "value": {
-              "__uuid__": "c7b0af7b-a470-429b-a7d2-a34f749df71c"
+              "__uuid__": "60555b62-7d66-4584-aac1-b0a22983e2df"
             }
           },
           {
-            "frame": 0.9333333333333333,
+            "frame": 0.5833333333333334,
             "value": {
-              "__uuid__": "0576e4e2-8c49-470f-9d69-74d272b40272"
-            }
-          },
-          {
-            "frame": 1.25,
-            "value": {
-              "__uuid__": "369ddd96-8ada-4fe0-a7ae-6a655ff710b0"
-            }
-          },
-          {
-            "frame": 1.5666666666666667,
-            "value": {
-              "__uuid__": "dd744985-87de-41d5-aa2c-49e936471d79"
-            }
-          },
-          {
-            "frame": 1.8833333333333333,
-            "value": {
-              "__uuid__": "0a783f96-86a2-44be-ba1a-ade03fa8d4a3"
+              "__uuid__": "9b070f64-eb5c-41e7-98a3-7bb9dc0dd7c9"
             }
           }
         ]

@@ -3,6 +3,9 @@ const {ccclass, property} = cc._decorator;
 @ccclass
 export default class Turtle extends cc.Component {
 
+    @property({type:cc.AudioClip})
+    private BreakAudio: cc.AudioClip=null;
+
     private speed = -60;
 
     private anim: cc.Animation = null;
@@ -87,7 +90,7 @@ export default class Turtle extends cc.Component {
                 let fadeAct = cc.fadeOut(0.8);
                 let breakAct = cc.spawn(moveAct,fadeAct);
                 let finishAct = cc.callFunc(()=>{this.node.destroy();});
-                this.scheduleOnce(()=>{this.node.runAction(cc.sequence(breakAct,finishAct));},0.1); 
+                this.scheduleOnce(()=>{this.node.runAction(cc.sequence(breakAct,finishAct));cc.audioEngine.playEffect(this.BreakAudio,false);},0.1); 
 
                 this.scheduleOnce(()=>{self.node.destroy();},0.7);
             }
@@ -121,7 +124,7 @@ export default class Turtle extends cc.Component {
                 let fadeAct = cc.fadeOut(0.8);
                 let breakAct = cc.spawn(moveAct,fadeAct);
                 let finishAct = cc.callFunc(()=>{this.node.destroy();});
-                this.scheduleOnce(()=>{this.node.runAction(cc.sequence(breakAct,finishAct));},0.1); 
+                this.scheduleOnce(()=>{this.node.runAction(cc.sequence(breakAct,finishAct));cc.audioEngine.playEffect(this.BreakAudio,false);},0.1); 
                 this.scheduleOnce(()=>{self.node.destroy();},0.7);
             }
             else if(contact.getWorldManifold().normal.x>0&&this.speed>0)
