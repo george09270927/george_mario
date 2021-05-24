@@ -1,3 +1,4 @@
+import { Global } from "./Player";
 
 const {ccclass, property} = cc._decorator;
 
@@ -36,6 +37,19 @@ export default class signupEnter extends cc.Component {
             }
             //================================================
             alert("New account register success! It will sign in automatically.");
+
+
+
+            var messageListRef = firebase.database().ref(""+email.replace(/\./g,"_"));
+            
+            messageListRef.set({
+                email: email,
+                score: 0 ,
+                coin: 0 ,
+                life: 5
+            });
+            Global.email = email;
+
             cc.director.loadScene("Menu");
             
 

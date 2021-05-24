@@ -2,10 +2,11 @@ const {ccclass, property} = cc._decorator;
 
 
 export module Global {
-    export let scorenum : number = 0;
-    export let lifenum : number = 1;
+    export let scorenum : number ;
+    export let lifenum : number ;
     export let timenum: number = 300;
-    export let coinnum: number = 0;
+    export let coinnum: number ;
+    export let email: string ;
 }
 
 
@@ -595,6 +596,15 @@ export default class Player extends cc.Component
             this.mysum=Global.scorenum+50*Global.timenum;
             this.mytimesum=50*Global.timenum;
             this.finishscoreflag=false;
+            
+            
+            var messageListRef = firebase.database().ref(""+Global.email.replace(/\./g,"_"));
+            messageListRef.set({
+                email: Global.email,
+                score: this.mysum ,
+                coin:  Global.coinnum,
+                life: Global.lifenum
+            });
         }
         if(this.finishtotalscoreflag&&Global.scorenum!=this.mysum)
         {
@@ -609,6 +619,8 @@ export default class Player extends cc.Component
         {
             this.menuflag=true;
             cc.audioEngine.playEffect(this.countAudio2,false);
+
+            
             this.scheduleOnce(()=>{cc.director.loadScene("Menu");},3);
         }   
     }
