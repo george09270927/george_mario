@@ -504,7 +504,7 @@
       "array": [
         -200,
         -65,
-        330.91914796098007,
+        325.0088378900298,
         0,
         0,
         0,
@@ -25494,7 +25494,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "button_oriange_press copy",
+    "_name": "button_oriange_press",
     "_objFlags": 0,
     "_parent": {
       "__id__": 1
@@ -25645,7 +25645,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "button_oriange_press copy",
+    "_name": "button_oriange_press",
     "_objFlags": 0,
     "_parent": {
       "__id__": 1

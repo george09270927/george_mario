@@ -456,6 +456,9 @@ export default class Player extends cc.Component
             } else if(other.node.name == "normalbrick"&&contact.getWorldManifold().normal.y<0) {
                 cc.log("mario hits the coinbox");
                 this.onGround = true;
+            } else if(other.node.name == "button_oriange_press"&&contact.getWorldManifold().normal.y<0) {
+                cc.log("mario hits the button_oriange_press");
+                this.onGround = true;
             } else if(other.node.name == "Big") {
                 cc.log("mario hits the Big");
                 this.createScore1000();
@@ -530,6 +533,7 @@ export default class Player extends cc.Component
             {
                 this.isFinish=true;
             }
+            
         }
     }
 
