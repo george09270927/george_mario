@@ -1,9 +1,37 @@
 {
   "__type__": "cc.AnimationClip",
-  "_name": "",
+  "_name": "marioBigDead",
   "_objFlags": 0,
-  "_duration": 0,
+  "_native": "",
+  "_duration": 1.05,
   "sample": 60,
-  "curveData": {},
+  "speed": 1,
+  "wrapMode": 2,
+  "curveData": {
+    "comps": {
+      "cc.Sprite": {
+        "spriteFrame": [
+          {
+            "frame": 0,
+            "value": {
+              "__uuid__": "7c5033d2-5f71-4050-b877-d2fec43f2d0e"
+            }
+          },
+          {
+            "frame": 0.5166666666666667,
+            "value": {
+              "__uuid__": "5aa1a412-a34b-4c59-a7f0-dbe618a8fc9d"
+            }
+          },
+          {
+            "frame": 1.0333333333333334,
+            "value": {
+              "__uuid__": "5aa1a412-a34b-4c59-a7f0-dbe618a8fc9d"
+            }
+          }
+        ]
+      }
+    }
+  },
   "events": []
 }

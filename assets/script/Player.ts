@@ -3,6 +3,9 @@ const {ccclass, property} = cc._decorator;
 
 export module Global {
     export let scorenum : number = 0;
+    export let lifenum : number = 1;
+    export let timenum: number = 300;
+    export let coinnum: number = 0;
 }
 
 
@@ -29,7 +32,33 @@ export default class Player extends cc.Component
 
     @property(cc.Node)
     private scoreText: cc.Node = null;
+
+    @property(cc.Node)
+    private finaltimeIcon: cc.Node = null;
+
+    @property(cc.Node)
+    private finalcrossIcon: cc.Node = null;
+
+    @property(cc.Node)
+    private finaltimeText: cc.Node = null;
+
+    @property(cc.Node)
+    private fiftyText: cc.Node = null;
+
+    @property(cc.Node)
+    private finalscoreText: cc.Node = null;
     
+    @property(cc.Node)
+    private finalclearText1: cc.Node = null;
+
+    @property(cc.Node)
+    private finaltotalscoreText1: cc.Node = null;
+
+    @property(cc.Node)
+    private finaltotalscoreText2: cc.Node = null;
+
+    @property(cc.Node)
+    private finalclearText3: cc.Node = null;
 
     @property({type:cc.AudioClip})
     private JumpAudio: cc.AudioClip=null;
@@ -57,6 +86,9 @@ export default class Player extends cc.Component
 
     @property({type:cc.AudioClip})
     private ReserveAudio: cc.AudioClip=null;
+
+    @property({type:cc.AudioClip})
+    private finishAudio: cc.AudioClip=null;
 
     @property(cc.Prefab)
     private Score1000Prefab: cc.Prefab = null;
@@ -101,11 +133,11 @@ export default class Player extends cc.Component
     //private invicible: boolean = true;
     private invicible: boolean = false;
 
-    private timenum: number = 300;
+    //private timenum: number = 300;
 
-    private lifenum: number = 5;
+    //private lifenum: number = 5;
 
-    private coinnum: number = 0;
+    //private coinnum: number = 0;
 
     //public scorenum: number = 0;
 
@@ -119,18 +151,42 @@ export default class Player extends cc.Component
     private isMove2: boolean = false;
     private movefinish2: boolean = true;
 
+    private isFinish: boolean = false;
+    private finishfinish: boolean = true;
+
+    private finishclearflag: boolean = false;
+    private finishtimeflag: boolean = false;
+    private finishscoreflag: boolean = false;
+    private finishtotalscoreflag: boolean = false;
+
+
     private blink = cc.blink(2,6).repeatForever();
     private isblink = false;
+
+    private nowlevel;
+
+    private mysum;
+    private mytimesum;
 
 
     start() {
         this.anim = this.getComponent(cc.Animation);
         cc.audioEngine.playMusic(this.Bgm1,true);
         this.countdown = function(){
-            if(this.timenum>0)this.timenum--;
+            if(Global.timenum>0)Global.timenum--;
             //cc.log(this.timenum);
         }
         this.schedule(this.countdown,1);
+
+        var scene = cc.director.getScene();
+        if(scene.name == "level1"){
+            this.nowlevel=1;
+        }else if(scene.name == "level2"){
+            this.nowlevel=2;
+        }
+
+        this.finaltimeIcon.opacity = 0;
+        this.finalcrossIcon.opacity = 0;
       }
 
     onLoad() {
@@ -196,13 +252,17 @@ export default class Player extends cc.Component
         {
             return;
         }
+        else if(this.isFinish)
+        {
+            return;
+        }
 
         else if(this.zDown&&this.hit_left_main==false){
-            this.playerSpeed = -100;
+            this.playerSpeed = -120;
             this.node.scaleX = -1;
         }
         else if(this.xDown&&this.hit_right_main==false){
-            this.playerSpeed = 100;
+            this.playerSpeed = 120;
             this.node.scaleX = 1;
         }
         
@@ -281,9 +341,9 @@ export default class Player extends cc.Component
         //cc.log(this.nowstate);
         if(this.isDead&&this.deadfinish)
         {
-            if(this.lifenum>0)
+            if(Global.lifenum>=0)
             {
-                this.lifenum--;
+                Global.lifenum--;
                 this.reborn();
                 this.deadfinish=false;
             }
@@ -312,6 +372,11 @@ export default class Player extends cc.Component
         {
             this.turnMove2();
             this.movefinish2=false;
+        }
+        else if(this.isFinish&&this.finishfinish)
+        {
+            this.turnfinish();
+            this.finishfinish=false;
         }
         else if(this.isBig==false&&this.isDead==false&&this.playerSpeed!=0&&this.animstate!="marioRun"&&this.nowstate==this.marioState.Normal)
         {
@@ -355,7 +420,7 @@ export default class Player extends cc.Component
             this.node.runAction(this.blink);
             this.isblink=true;
         }
-        else if(this.invicible==false)
+        else if(this.invicible==false&&this.isblink==true)
         {
             this.node.stopAction(this.blink);
             this.isblink=false;
@@ -390,11 +455,11 @@ export default class Player extends cc.Component
                 this.isBig = true;
             } else if(other.node.name == "Life") {
                 cc.log("mario hits the Life");
-                this.lifenum++;
+                Global.lifenum++;
                 cc.audioEngine.playEffect(this.ReserveAudio,false);
             } else if(other.node.name == "RealCoin") {
                 cc.log("mario hits the RealCoin");
-                this.coinnum++;
+                Global.coinnum++;
             } else if(other.node.name == "Goomba") {
                 cc.log("mario hits the Goomda");
                 if(contact.getWorldManifold().normal.y<0) this.jump2();
@@ -422,7 +487,7 @@ export default class Player extends cc.Component
             }  else if(other.node.name == "Turtle") {
                 cc.log("mario hits the Turtle");
                 if(contact.getWorldManifold().normal.y<0) this.jump2();
-                else if(other.node.getComponent("Turtle").nowstate!=other.node.getComponent("Turtle").turtleState.Hitten)
+                else if(other.node.getComponent("Turtle").nowstate==other.node.getComponent("Turtle").turtleState.Normal)
                 {
                     
                     if(this.nowstate==this.marioState.Big)
@@ -442,7 +507,7 @@ export default class Player extends cc.Component
                     this.node.getComponent(cc.PhysicsBoxCollider).size.height = 16;
                     this.isNormal=true;
                 }
-                else this.isDead = true;
+                else if(this.invicible==false) this.isDead = true;
             }
             else if(other.node.name == "pipelineLeft"&&contact.getWorldManifold().normal.x>0&&this.onGround==true)
             {
@@ -451,6 +516,10 @@ export default class Player extends cc.Component
             else if(other.node.name == "pipelineUp") {
                 this.onGround = true;
                 if((this.node.x-other.node.x)*(this.node.x-other.node.x)<80)  this.isMove2=true;
+            }
+            else if(other.node.name == "flag")
+            {
+                this.isFinish=true;
             }
         }
     }
@@ -461,7 +530,7 @@ export default class Player extends cc.Component
             {
                 this.camera.x=-160;
             }
-            else
+            else if(this.node.x<=3650)
             {
                 this.camera.x = this.node.x-450;
             }
@@ -481,7 +550,7 @@ export default class Player extends cc.Component
             {
                 this.UI.x=0;
             }
-            else
+            else if(this.node.x<=3650)
             {
                 this.UI.x = this.node.x-290;
             }
@@ -495,26 +564,61 @@ export default class Player extends cc.Component
     }
 
     UIupdate(){
-        this.timeText.getComponent(cc.Label).string = "" + this.timenum;
-        this.lifeText.getComponent(cc.Label).string = "" + this.lifenum;
-        this.coinText.getComponent(cc.Label).string = "" + this.coinnum;
+        this.timeText.getComponent(cc.Label).string = "" + Global.timenum;
+        this.lifeText.getComponent(cc.Label).string = "" + Global.lifenum;
+        this.coinText.getComponent(cc.Label).string = "" + Global.coinnum;
         this.scoreText.getComponent(cc.Label).string = (Array(7).join('0') + Global.scorenum).slice(-7);
+
+        if(this.finishclearflag) 
+        {
+            this.finalclearText1.getComponent(cc.Label).string = "LEVEL";
+            this.finalclearText3.getComponent(cc.Label).string = "CLEAR";
+        }
+        if(this.finishtimeflag)
+        {
+            this.finaltimeIcon.opacity = 255;
+            this.finalcrossIcon.opacity = 255;
+            this.finaltimeText.getComponent(cc.Label).string = ""+Global.timenum;
+            this.fiftyText.getComponent(cc.Label).string = "50";
+        }
+        if(this.finishscoreflag)
+        {
+            this.finalscoreText.getComponent(cc.Label).string = ""+50*Global.timenum;
+            this.mysum=Global.scorenum+50*Global.timenum;
+            this.mytimesum=50*Global.timenum;
+            this.finishscoreflag=false;
+        }
+        if(this.finishtotalscoreflag&&Global.scorenum!=this.mysum)
+        {
+            this.mytimesum-=50;
+            this.finalscoreText.getComponent(cc.Label).string = ""+this.mytimesum;
+            this.finaltotalscoreText1.getComponent(cc.Label).string = "TOTAL";
+            Global.scorenum+=50;
+            this.finaltotalscoreText2.getComponent(cc.Label).string = ""+Global.scorenum;
+        }
+        if(Global.scorenum==this.mysum)   this.scheduleOnce(()=>{cc.director.loadScene("Menu");},2);
     }
 
 
     reborn(){
         cc.audioEngine.pauseMusic();
-        cc.audioEngine.playMusic(this.LoseOneLifeAudio,false);
-        cc.log("reborn");
-        this.anim.stop();
-        this.animstate=this.anim.play("marioDead");
-        cc.director.getPhysicsManager().enabled = false;
+        if(Global.lifenum<0) cc.director.loadScene("gameover");
+        else 
+        {
+            cc.director.loadScene("gamestart");
+            cc.audioEngine.playMusic(this.LoseOneLifeAudio,false);
+            cc.log("reborn");
+            this.anim.stop();
+            this.animstate=this.anim.play("marioDead");
+            cc.director.getPhysicsManager().enabled = false;
 
-        this.unschedule(this.countdown);
-          
-        this.node.runAction(cc.sequence(cc.moveBy(1,0,20),cc.moveBy(1,0,-500)));
-
+            this.unschedule(this.countdown);
+              
+            this.node.runAction(cc.sequence(cc.moveBy(1,0,20),cc.moveBy(1,0,-500)));
+        }
         // Return to reborn position
+        
+        /*
         this.scheduleOnce(()=>{
             this.node.x = 100;
             this.node.y = 100;
@@ -528,6 +632,7 @@ export default class Player extends cc.Component
             cc.audioEngine.playMusic(this.Bgm1,true);
             this.schedule(this.countdown,1);
             },3);
+            */
     }
 
     turnBig(){
@@ -625,6 +730,25 @@ export default class Player extends cc.Component
                 this.movefinish2=true;
             },1);
         },2);
+    }
+
+
+    turnfinish()
+    {
+        this.unschedule(this.countdown);
+        cc.audioEngine.pauseMusic();
+        cc.director.getPhysicsManager().enabled = false;
+        cc.audioEngine.playMusic(this.finishAudio,false);
+        this.node.runAction(cc.moveTo(1,this.node.x,65));
+        this.scheduleOnce(()=>{this.finishclearflag=true},1);
+        this.scheduleOnce(()=>{this.finishtimeflag=true},2);
+        this.scheduleOnce(()=>{this.finishscoreflag=true},3);
+        this.scheduleOnce(()=>{ 
+            this.finaltotalscoreText1.getComponent(cc.Label).string = "TOTAL";   
+            this.finaltotalscoreText2.getComponent(cc.Label).string = ""+Global.scorenum;},4);
+       
+        this.scheduleOnce(()=>{this.finishtotalscoreflag=true},5);
+
     }
 
     private createScore1000() {

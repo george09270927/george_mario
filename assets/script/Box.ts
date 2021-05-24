@@ -61,7 +61,7 @@ export default class Box extends cc.Component {
   }
 
   onBeginContact(contact, self, other) {
-    cc.log("contact!!");
+    //cc.log("contact!!");
     
     if(self.node.name == "coinbox"&&other.node.name=="Player"&&this.isTouched==false) {
       if(contact.getWorldManifold().normal.y<0)
