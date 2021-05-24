@@ -1,9 +1,9 @@
-import { Global } from "./SignUp";
+import { Global } from "./LogIn";
 
 const {ccclass, property} = cc._decorator;
 
 @ccclass
-export default class signupBox extends cc.Component {
+export default class loginBox extends cc.Component {
 
     
     public init(node: cc.Node) 
@@ -15,7 +15,7 @@ export default class signupBox extends cc.Component {
     {
         this.node.parent = node.parent; // don't mount under the player, otherwise it will change direction when player move
 
-        this.node.position = cc.v2(-85,-12);
+        this.node.position = cc.v2(85,-12);
 
         this.node.position = this.node.position.addSelf(node.position);
         
@@ -23,10 +23,11 @@ export default class signupBox extends cc.Component {
 
     update(dt)
     {
-        if(Global.signupcancelFlag==true) 
+        if(Global.logincancelFlag==true) 
         {
-            Global.signupcancelFlag=false;
+            Global.logincancelFlag=false;
             this.node.destroy();
         }
     }
 }
+

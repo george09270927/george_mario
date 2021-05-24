@@ -8,6 +8,6 @@ export default class Cancel extends cc.Component {
 
     setflag1()
     {
-        Global.cancelFlag=true;
+        Global.signupcancelFlag=true;
     }
 }

@@ -3,7 +3,7 @@
  <tileset firstgid="1" name="tileset" tilewidth="16" tileheight="16" tilecount="1204" columns="43">
   <image source="../AS2_source/effects_UI_tiles/tileset.png" trans="ff00ff" width="688" height="450"/>
  </tileset>
- <layer id="1" name="圖塊層 1" width="19" height="15">
+ <layer id="1" name="orange" width="19" height="15">
   <data encoding="csv">
 17,18,18,18,18,18,18,18,18,18,18,18,18,18,18,18,18,18,19,
 60,1054,1054,1054,1054,1054,1054,1054,1054,1054,1054,1054,1054,1054,1054,1054,1054,1054,62,

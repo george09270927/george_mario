@@ -26,10 +26,10 @@
         "__id__": 66
       },
       {
-        "__id__": 74
+        "__id__": 75
       },
       {
-        "__id__": 83
+        "__id__": 84
       }
     ],
     "_active": false,
@@ -180,7 +180,7 @@
       "array": [
         -1720,
         -65,
-        330.91914796098007,
+        323.97706380149003,
         0,
         0,
         0,
@@ -2254,6 +2254,9 @@
     "_components": [
       {
         "__id__": 72
+      },
+      {
+        "__id__": 74
       }
     ],
     "_prefab": null,
@@ -2616,11 +2619,26 @@
   },
   {
     "__type__": "cc.ClickEvent",
-    "target": null,
+    "target": {
+      "__id__": 66
+    },
     "component": "",
-    "_componentId": "",
-    "handler": "",
+    "_componentId": "0b230BjMoVABbm98NLO59k1",
+    "handler": "createLogInBox",
     "customEventData": ""
+  },
+  {
+    "__type__": "0b230BjMoVABbm98NLO59k1",
+    "_name": "",
+    "_objFlags": 0,
+    "node": {
+      "__id__": 66
+    },
+    "_enabled": true,
+    "loginBoxPrefab": {
+      "__uuid__": "e8e5a5cd-eac0-46ab-b3f0-259c2d4f55a0"
+    },
+    "_id": "d8fDPgbw1NL7blJ5lZVcX6"
   },
   {
     "__type__": "cc.Node",
@@ -2631,16 +2649,16 @@
     },
     "_children": [
       {
-        "__id__": 75
+        "__id__": 76
       }
     ],
     "_active": true,
     "_components": [
       {
-        "__id__": 80
+        "__id__": 81
       },
       {
-        "__id__": 82
+        "__id__": 83
       }
     ],
     "_prefab": null,
@@ -2696,20 +2714,20 @@
     "_name": "Background",
     "_objFlags": 0,
     "_parent": {
-      "__id__": 74
+      "__id__": 75
     },
     "_children": [
       {
-        "__id__": 76
+        "__id__": 77
       }
     ],
     "_active": true,
     "_components": [
       {
-        "__id__": 78
+        "__id__": 79
       },
       {
-        "__id__": 79
+        "__id__": 80
       }
     ],
     "_prefab": null,
@@ -2765,13 +2783,13 @@
     "_name": "Label",
     "_objFlags": 0,
     "_parent": {
-      "__id__": 75
+      "__id__": 76
     },
     "_children": [],
     "_active": true,
     "_components": [
       {
-        "__id__": 77
+        "__id__": 78
       }
     ],
     "_prefab": null,
@@ -2827,7 +2845,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 76
+      "__id__": 77
     },
     "_enabled": true,
     "_materials": [
@@ -2859,7 +2877,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 75
+      "__id__": 76
     },
     "_enabled": true,
     "_materials": [
@@ -2891,7 +2909,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 75
+      "__id__": 76
     },
     "_enabled": true,
     "alignMode": 0,
@@ -2918,7 +2936,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 74
+      "__id__": 75
     },
     "_enabled": true,
     "_normalMaterial": {
@@ -2929,7 +2947,7 @@
     "zoomScale": 1.2,
     "clickEvents": [
       {
-        "__id__": 81
+        "__id__": 82
       }
     ],
     "_N$interactable": true,
@@ -2997,18 +3015,18 @@
       "__uuid__": "cb4540c9-e8eb-42c3-a02d-c6c9dda26f04"
     },
     "_N$target": {
-      "__id__": 75
+      "__id__": 76
     },
     "_id": "94Xr7Z+PFGMIzNZe4XpEfR"
   },
   {
     "__type__": "cc.ClickEvent",
     "target": {
-      "__id__": 74
+      "__id__": 75
     },
     "component": "",
-    "_componentId": "a7933ZyZi9A4aTB5w0gbZow",
-    "handler": "gotogamestart",
+    "_componentId": "92930d6KBhMaYErSc/Qc0fZ",
+    "handler": "createSignUpBox",
     "customEventData": ""
   },
   {
@@ -3016,10 +3034,12 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 74
+      "__id__": 75
     },
     "_enabled": true,
-    "signupPrefab": null,
+    "signupBoxPrefab": {
+      "__uuid__": "59a5bd16-e691-470a-a18a-cf1111a1cf43"
+    },
     "_id": "a1PigwG7BDEYxOa5XWwwlo"
   },
   {
@@ -3033,7 +3053,7 @@
     "_active": true,
     "_components": [
       {
-        "__id__": 84
+        "__id__": 85
       }
     ],
     "_prefab": null,
@@ -3089,7 +3109,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 83
+      "__id__": 84
     },
     "_enabled": true,
     "_materials": [
