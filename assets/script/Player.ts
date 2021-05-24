@@ -9,6 +9,8 @@ export module Global {
     export let email: string ;
     export let username: string ;
     export let nowlevel:number;
+    export let ruleFlag : boolean = false;
+    export let ioFlag: boolean = false;
 }
 
 
@@ -202,7 +204,7 @@ export default class Player extends cc.Component
         cc.systemEvent.on(cc.SystemEvent.EventType.KEY_DOWN, this.onKeyDown, this);
         cc.systemEvent.on(cc.SystemEvent.EventType.KEY_UP, this.onKeyUp, this);
         this.nowstate = this.marioState.Normal; 
-        cc.director.getPhysicsManager().debugDrawFlags=1;
+        //cc.director.getPhysicsManager().debugDrawFlags=1;
     }
 
     onKeyDown(event) {

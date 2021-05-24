@@ -7,7 +7,10 @@ export default class NewClass extends cc.Component {
 
 
     gotogamestart () {
-        Global.nowlevel=1;
-        cc.director.loadScene("gamestart");
+        if(Global.ioFlag==false)
+        {
+            Global.nowlevel=1;
+            cc.director.loadScene("gamestart");
+        }
     }
 }
