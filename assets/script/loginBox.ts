@@ -1,4 +1,4 @@
-import { Global } from "./LogIn";
+import { Global } from "./SignUp";
 
 const {ccclass, property} = cc._decorator;
 
@@ -26,6 +26,7 @@ export default class loginBox extends cc.Component {
         if(Global.logincancelFlag==true) 
         {
             Global.logincancelFlag=false;
+            Global.isLogin=false;
             this.node.destroy();
         }
     }

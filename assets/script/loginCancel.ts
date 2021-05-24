@@ -1,4 +1,4 @@
-import { Global } from "./LogIn";
+import { Global } from "./SignUp";
 
 
 const {ccclass, property} = cc._decorator;

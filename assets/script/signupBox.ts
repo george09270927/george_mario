@@ -26,6 +26,7 @@ export default class signupBox extends cc.Component {
         if(Global.signupcancelFlag==true) 
         {
             Global.signupcancelFlag=false;
+            Global.isSignup=false;
             this.node.destroy();
         }
     }

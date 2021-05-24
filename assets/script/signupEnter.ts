@@ -13,7 +13,8 @@ export default class signupEnter extends cc.Component {
 
         
         var email = this.node.parent.getChildByName("EmailBox").getChildByName("TEXT_LABEL").getComponent(cc.Label).string;
-        var password = this.node.parent.getChildByName("UserNameBox").getChildByName("TEXT_LABEL").getComponent(cc.Label).string;
+        var username = this.node.parent.getChildByName("UserNameBox").getChildByName("TEXT_LABEL").getComponent(cc.Label).string;
+        var password = this.node.parent.getChildByName("PasswordBox").getChildByName("TEXT_LABEL").getComponent(cc.Label).string;
         console.log(email);
         console.log(password);
         firebase.auth().createUserWithEmailAndPassword(email,password).then(() => {
@@ -36,6 +37,9 @@ export default class signupEnter extends cc.Component {
             //================================================
             alert("New account register success! It will sign in automatically.");
             cc.director.loadScene("Menu");
+            
+
+
         }).catch(function(error) {
             // Handle Errors here.
             var errorCode = error.code;
