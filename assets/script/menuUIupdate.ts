@@ -16,6 +16,9 @@ export default class NewClass extends cc.Component {
     @property(cc.Node)
     private scoreText: cc.Node = null;
 
+    @property(cc.Node)
+    private usernameText: cc.Node = null;
+
     // LIFE-CYCLE CALLBACKS:
 
      onLoad () {
@@ -30,10 +33,17 @@ export default class NewClass extends cc.Component {
         {
             Global.lifenum = snapshot.val();
         });
+
         var messageListRef3 = firebase.database().ref(""+Global.email.replace(/\./g,"_")+"/score");
         messageListRef3.once('value',function(snapshot)
         {
             Global.scorenum = snapshot.val();
+        });
+
+        var messageListRef4 = firebase.database().ref(""+Global.email.replace(/\./g,"_")+"/username");
+        messageListRef4.once('value',function(snapshot)
+        {
+            Global.username = snapshot.val();
         });
     }
 
@@ -45,7 +55,8 @@ export default class NewClass extends cc.Component {
     UIupdate(){
         this.lifeText.getComponent(cc.Label).string = "" + Global.lifenum;
         this.coinText.getComponent(cc.Label).string = "" + Global.coinnum;
-        this.scoreText.getComponent(cc.Label).string = (Array(7).join('0') + Global.scorenum).slice(-7);  
+        this.scoreText.getComponent(cc.Label).string = (Array(7).join('0') + Global.scorenum).slice(-7);
+        this.usernameText.getComponent(cc.Label).string = "" + Global.username;  
     }
 
     // update (dt) {}

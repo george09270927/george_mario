@@ -37,11 +37,12 @@ export default class loginEnter extends cc.Component {
                     });
                 }
                 //================================================
-                alert("email account login success!");
+                //alert("email account login success!");
 
                 Global.email = email;
 
 
+                cc.audioEngine.stopMusic();
                 cc.director.loadScene("Menu");
             }).catch(function(error) {
                 // Handle Errors here.

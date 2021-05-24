@@ -20,16 +20,16 @@
         "__id__": 6
       },
       {
-        "__id__": 64
+        "__id__": 65
       },
       {
-        "__id__": 66
+        "__id__": 67
       },
       {
-        "__id__": 75
+        "__id__": 76
       },
       {
-        "__id__": 84
+        "__id__": 85
       }
     ],
     "_active": false,
@@ -180,7 +180,7 @@
       "array": [
         -1720,
         -65,
-        324.0991979061776,
+        324.856970134489,
         0,
         0,
         0,
@@ -281,7 +281,11 @@
       }
     ],
     "_active": true,
-    "_components": [],
+    "_components": [
+      {
+        "__id__": 64
+      }
+    ],
     "_prefab": null,
     "_opacity": 255,
     "_color": {
@@ -2145,6 +2149,24 @@
     "sync": false
   },
   {
+    "__type__": "cc.AudioSource",
+    "_name": "",
+    "_objFlags": 0,
+    "node": {
+      "__id__": 6
+    },
+    "_enabled": true,
+    "_clip": {
+      "__uuid__": "16f95cc8-72c3-499f-8cc9-a6298a30ad96"
+    },
+    "_volume": 0.5,
+    "_mute": false,
+    "_loop": true,
+    "playOnLoad": true,
+    "preload": true,
+    "_id": "e80kIGHEBB2rzBK42IiGSj"
+  },
+  {
     "__type__": "cc.Node",
     "_name": "text_area_0",
     "_objFlags": 0,
@@ -2155,7 +2177,7 @@
     "_active": true,
     "_components": [
       {
-        "__id__": 65
+        "__id__": 66
       }
     ],
     "_prefab": null,
@@ -2211,7 +2233,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 64
+      "__id__": 65
     },
     "_enabled": true,
     "_materials": [
@@ -2247,16 +2269,16 @@
     },
     "_children": [
       {
-        "__id__": 67
+        "__id__": 68
       }
     ],
     "_active": true,
     "_components": [
       {
-        "__id__": 72
+        "__id__": 73
       },
       {
-        "__id__": 74
+        "__id__": 75
       }
     ],
     "_prefab": null,
@@ -2312,20 +2334,20 @@
     "_name": "Background",
     "_objFlags": 0,
     "_parent": {
-      "__id__": 66
+      "__id__": 67
     },
     "_children": [
       {
-        "__id__": 68
+        "__id__": 69
       }
     ],
     "_active": true,
     "_components": [
       {
-        "__id__": 70
+        "__id__": 71
       },
       {
-        "__id__": 71
+        "__id__": 72
       }
     ],
     "_prefab": null,
@@ -2381,13 +2403,13 @@
     "_name": "Label",
     "_objFlags": 0,
     "_parent": {
-      "__id__": 67
+      "__id__": 68
     },
     "_children": [],
     "_active": true,
     "_components": [
       {
-        "__id__": 69
+        "__id__": 70
       }
     ],
     "_prefab": null,
@@ -2443,7 +2465,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 68
+      "__id__": 69
     },
     "_enabled": true,
     "_materials": [
@@ -2475,7 +2497,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 67
+      "__id__": 68
     },
     "_enabled": true,
     "_materials": [
@@ -2507,7 +2529,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 67
+      "__id__": 68
     },
     "_enabled": true,
     "alignMode": 0,
@@ -2534,7 +2556,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 66
+      "__id__": 67
     },
     "_enabled": true,
     "_normalMaterial": {
@@ -2545,7 +2567,7 @@
     "zoomScale": 1.2,
     "clickEvents": [
       {
-        "__id__": 73
+        "__id__": 74
       }
     ],
     "_N$interactable": true,
@@ -2613,14 +2635,14 @@
       "__uuid__": "a3570858-83df-4a01-b9d8-701cd7c3e23d"
     },
     "_N$target": {
-      "__id__": 67
+      "__id__": 68
     },
     "_id": "64QQ3gNVpPTomLO7Vwc6eF"
   },
   {
     "__type__": "cc.ClickEvent",
     "target": {
-      "__id__": 66
+      "__id__": 67
     },
     "component": "",
     "_componentId": "0b230BjMoVABbm98NLO59k1",
@@ -2632,7 +2654,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 66
+      "__id__": 67
     },
     "_enabled": true,
     "loginBoxPrefab": {
@@ -2649,16 +2671,16 @@
     },
     "_children": [
       {
-        "__id__": 76
+        "__id__": 77
       }
     ],
     "_active": true,
     "_components": [
       {
-        "__id__": 81
+        "__id__": 82
       },
       {
-        "__id__": 83
+        "__id__": 84
       }
     ],
     "_prefab": null,
@@ -2714,20 +2736,20 @@
     "_name": "Background",
     "_objFlags": 0,
     "_parent": {
-      "__id__": 75
+      "__id__": 76
     },
     "_children": [
       {
-        "__id__": 77
+        "__id__": 78
       }
     ],
     "_active": true,
     "_components": [
       {
-        "__id__": 79
+        "__id__": 80
       },
       {
-        "__id__": 80
+        "__id__": 81
       }
     ],
     "_prefab": null,
@@ -2783,13 +2805,13 @@
     "_name": "Label",
     "_objFlags": 0,
     "_parent": {
-      "__id__": 76
+      "__id__": 77
     },
     "_children": [],
     "_active": true,
     "_components": [
       {
-        "__id__": 78
+        "__id__": 79
       }
     ],
     "_prefab": null,
@@ -2845,7 +2867,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 77
+      "__id__": 78
     },
     "_enabled": true,
     "_materials": [
@@ -2877,7 +2899,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 76
+      "__id__": 77
     },
     "_enabled": true,
     "_materials": [
@@ -2909,7 +2931,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 76
+      "__id__": 77
     },
     "_enabled": true,
     "alignMode": 0,
@@ -2936,7 +2958,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 75
+      "__id__": 76
     },
     "_enabled": true,
     "_normalMaterial": {
@@ -2947,7 +2969,7 @@
     "zoomScale": 1.2,
     "clickEvents": [
       {
-        "__id__": 82
+        "__id__": 83
       }
     ],
     "_N$interactable": true,
@@ -3015,14 +3037,14 @@
       "__uuid__": "cb4540c9-e8eb-42c3-a02d-c6c9dda26f04"
     },
     "_N$target": {
-      "__id__": 76
+      "__id__": 77
     },
     "_id": "94Xr7Z+PFGMIzNZe4XpEfR"
   },
   {
     "__type__": "cc.ClickEvent",
     "target": {
-      "__id__": 75
+      "__id__": 76
     },
     "component": "",
     "_componentId": "92930d6KBhMaYErSc/Qc0fZ",
@@ -3034,7 +3056,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 75
+      "__id__": 76
     },
     "_enabled": true,
     "signupBoxPrefab": {
@@ -3053,7 +3075,7 @@
     "_active": true,
     "_components": [
       {
-        "__id__": 85
+        "__id__": 86
       }
     ],
     "_prefab": null,
@@ -3109,7 +3131,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 84
+      "__id__": 85
     },
     "_enabled": true,
     "_materials": [

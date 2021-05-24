@@ -7,6 +7,8 @@ export module Global {
     export let timenum: number = 300;
     export let coinnum: number ;
     export let email: string ;
+    export let username: string ;
+    export let nowlevel:number;
 }
 
 
@@ -33,6 +35,9 @@ export default class Player extends cc.Component
 
     @property(cc.Node)
     private scoreText: cc.Node = null;
+
+    @property(cc.Node)
+    private worldText: cc.Node = null;
 
     @property(cc.Node)
     private finaltimeIcon: cc.Node = null;
@@ -170,7 +175,6 @@ export default class Player extends cc.Component
     private blink = cc.blink(2,6).repeatForever();
     private isblink = false;
 
-    private nowlevel;
 
     private mysum;
     private mytimesum;
@@ -187,12 +191,6 @@ export default class Player extends cc.Component
         }
         this.schedule(this.countdown,1);
 
-        var scene = cc.director.getScene();
-        if(scene.name == "level1"){
-            this.nowlevel=1;
-        }else if(scene.name == "level2"){
-            this.nowlevel=2;
-        }
 
         this.finaltimeIcon.opacity = 0;
         this.finalcrossIcon.opacity = 0;
@@ -581,6 +579,7 @@ export default class Player extends cc.Component
         this.lifeText.getComponent(cc.Label).string = "" + Global.lifenum;
         this.coinText.getComponent(cc.Label).string = "" + Global.coinnum;
         this.scoreText.getComponent(cc.Label).string = (Array(7).join('0') + Global.scorenum).slice(-7);
+        this.worldText.getComponent(cc.Label).string = "" + this.nowlevel;
 
         if(this.finishclearflag) 
         {
@@ -607,7 +606,8 @@ export default class Player extends cc.Component
                 email: Global.email,
                 score: this.mysum ,
                 coin:  Global.coinnum,
-                life: Global.lifenum
+                life: Global.lifenum,
+                username: Global.username
             });
         }
         if(this.finishtotalscoreflag&&Global.scorenum!=this.mysum)

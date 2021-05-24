@@ -11,8 +11,9 @@ export default class NewClass extends cc.Component {
       messageListRef.set({
           email: Global.email,
           score: Global.scorenum ,
-          coin:  Global.coinnum,
-          life: Global.lifenum
+          coin:  Global.coinnum ,
+          life: Global.lifenum ,
+          username: Global.username
       }); 
         
         this.scheduleOnce(()=>{cc.director.loadScene("Menu");},5);
@@ -21,6 +22,7 @@ export default class NewClass extends cc.Component {
       onLoad() { 
         Global.scorenum=0;
         Global.lifenum=5;
+        Global.coinnum=0;
         cc.director.getPhysicsManager().enabled = true;       	
     }
 
