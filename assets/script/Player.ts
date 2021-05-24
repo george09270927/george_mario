@@ -615,7 +615,7 @@ export default class Player extends cc.Component
 
 
     reborn(){
-        cc.audioEngine.pauseMusic();
+        cc.audioEngine.stopMusic();
         if(Global.lifenum<0) cc.director.loadScene("gameover");
         else 
         {
@@ -753,7 +753,7 @@ export default class Player extends cc.Component
         cc.audioEngine.pauseMusic();
         cc.director.getPhysicsManager().enabled = false;
         cc.audioEngine.playMusic(this.finishAudio,false);
-        this.node.runAction(cc.moveTo(1,this.node.x,65));
+        this.node.runAction(cc.moveTo(1,this.node.x,89));
         this.scheduleOnce(()=>{this.finishclearflag=true},1);
         this.scheduleOnce(()=>{this.finishtimeflag=true},2);
         this.scheduleOnce(()=>{this.finishscoreflag=true},3);

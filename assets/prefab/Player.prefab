@@ -60,8 +60,8 @@
       "__type__": "TypedArray",
       "ctor": "Float64Array",
       "array": [
-        100,
-        100,
+        3549.018,
+        175.209,
         0,
         0,
         0,
@@ -154,6 +154,59 @@
     "_enabled": true,
     "bulletPrefab": null,
     "camera": null,
+    "UI": null,
+    "timeText": null,
+    "lifeText": null,
+    "coinText": null,
+    "scoreText": null,
+    "finaltimeIcon": null,
+    "finalcrossIcon": null,
+    "finaltimeText": null,
+    "fiftyText": null,
+    "finalscoreText": null,
+    "finalclearText1": null,
+    "finaltotalscoreText1": null,
+    "finaltotalscoreText2": null,
+    "finalclearText3": null,
+    "JumpAudio": {
+      "__uuid__": "275c3419-aff2-4674-b7f3-dbe160cae278"
+    },
+    "LoseOneLifeAudio": {
+      "__uuid__": "c9ab0a17-b929-4123-864e-5acb0070da95"
+    },
+    "PowerUpAudio": {
+      "__uuid__": "433b1bda-50a7-4c47-996f-a85dd668cd93"
+    },
+    "PowerDownAudio": {
+      "__uuid__": "2f2de92e-4c26-483c-a7a9-7594794d62d1"
+    },
+    "Bgm1": {
+      "__uuid__": "f93506bf-86b3-4d91-9bbe-05a6035f4203"
+    },
+    "Bgm2": {
+      "__uuid__": "bb49540b-8b8c-42f6-9d23-8302f9feda61"
+    },
+    "KickAudio": {
+      "__uuid__": "502bdcdd-81eb-406f-a8aa-489f64983038"
+    },
+    "StompAudio": {
+      "__uuid__": "6369b2e5-3ef5-4a8d-8954-b05ca932bda9"
+    },
+    "ReserveAudio": {
+      "__uuid__": "a90027dc-abbe-4555-9488-ce079ec6eff1"
+    },
+    "finishAudio": {
+      "__uuid__": "6766acc3-f57d-4bc3-86f2-8c2b95c02f8f"
+    },
+    "countAudio1": {
+      "__uuid__": "87bf0347-0319-4b21-8d6a-e27e4745a23e"
+    },
+    "countAudio2": {
+      "__uuid__": "8aba51c2-69e1-4c4a-8749-58db54795b05"
+    },
+    "Score1000Prefab": {
+      "__uuid__": "4c565f19-2546-4a6f-b3ec-8288c391b3e6"
+    },
     "_id": ""
   },
   {
@@ -185,6 +238,12 @@
       },
       {
         "__uuid__": "d5e04425-22a5-4df3-a161-a560c351dbfe"
+      },
+      {
+        "__uuid__": "99aabf3d-74f4-4cca-85e0-8f93e7b5455a"
+      },
+      {
+        "__uuid__": "527f22b1-cebb-4f09-b653-b2438c1605f3"
       }
     ],
     "playOnLoad": true,
