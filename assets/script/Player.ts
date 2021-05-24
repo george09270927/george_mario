@@ -90,6 +90,12 @@ export default class Player extends cc.Component
     @property({type:cc.AudioClip})
     private finishAudio: cc.AudioClip=null;
 
+    @property({type:cc.AudioClip})
+    private countAudio1: cc.AudioClip=null;
+
+    @property({type:cc.AudioClip})
+    private countAudio2: cc.AudioClip=null;
+
     @property(cc.Prefab)
     private Score1000Prefab: cc.Prefab = null;
 
@@ -167,6 +173,8 @@ export default class Player extends cc.Component
 
     private mysum;
     private mytimesum;
+
+    private menuflag=false;
 
 
     start() {
@@ -595,8 +603,14 @@ export default class Player extends cc.Component
             this.finaltotalscoreText1.getComponent(cc.Label).string = "TOTAL";
             Global.scorenum+=50;
             this.finaltotalscoreText2.getComponent(cc.Label).string = ""+Global.scorenum;
+            cc.audioEngine.playEffect(this.countAudio1,false);
         }
-        if(Global.scorenum==this.mysum)   this.scheduleOnce(()=>{cc.director.loadScene("Menu");},2);
+        if(Global.scorenum==this.mysum&&this.menuflag==false)
+        {
+            this.menuflag=true;
+            cc.audioEngine.playEffect(this.countAudio2,false);
+            this.scheduleOnce(()=>{cc.director.loadScene("Menu");},3);
+        }   
     }
 
 
