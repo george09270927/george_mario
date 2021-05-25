@@ -19,7 +19,14 @@ export default class NewClass extends cc.Component {
     @property(cc.Node)
     private usernameText: cc.Node = null;
 
-    // LIFE-CYCLE CALLBACKS:
+
+    start(){
+        Global.pauseEnter=false;
+        Global.pauseCursor=false;
+        Global.pauseUp=false;
+        Global.pauseDown=false;
+        Global.pauseBreak=false;
+    }
 
      onLoad () {
         var messageListRef1 = firebase.database().ref(""+Global.email.replace(/\./g,"_")+"/coin");

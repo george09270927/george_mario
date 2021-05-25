@@ -11,6 +11,11 @@ export module Global {
     export let nowlevel:number;
     export let ruleFlag : boolean = false;
     export let ioFlag: boolean = false;
+    export let pauseCursor: boolean = false;
+    export let pauseEnter: boolean = false;
+    export let pauseUp: boolean = false;
+    export let pauseDown: boolean = false;
+    export let pauseBreak: boolean = false;
 }
 
 
@@ -107,6 +112,13 @@ export default class Player extends cc.Component
     @property(cc.Prefab)
     private Score1000Prefab: cc.Prefab = null;
 
+    @property(cc.Prefab)
+    private PausePrefab: cc.Prefab = null;
+
+
+    @property(cc.Prefab)
+    private UP1Prefab: cc.Prefab = null;
+
     private nowstate;
 
     private marioState= cc.Enum({
@@ -183,6 +195,9 @@ export default class Player extends cc.Component
 
     private menuflag=false;
 
+    private isPause: boolean = false;
+    private pausefinish: boolean = true;
+
 
     start() {
         this.anim = this.getComponent(cc.Animation);
@@ -209,7 +224,16 @@ export default class Player extends cc.Component
 
     onKeyDown(event) {
         cc.log("Key Down: " + event.keyCode);
-        if(event.keyCode == cc.macro.KEY.z) {
+        if(event.keyCode==cc.macro.KEY.escape)
+        {
+            Global.pauseEnter=false;
+            this.isPause=true;
+        }
+        else if(event.keyCode==cc.macro.KEY.enter)
+        {
+            Global.pauseEnter=true;
+        }
+        else if(event.keyCode == cc.macro.KEY.z) {
             this.zDown = true;
             this.xDown = false;
         } else if(event.keyCode == cc.macro.KEY.x) {
@@ -224,6 +248,10 @@ export default class Player extends cc.Component
     }
     
     onKeyUp(event) {
+        if(event.keyCode==cc.macro.KEY.enter)
+        {
+            Global.pauseEnter=false;
+        }
         if(event.keyCode == cc.macro.KEY.z)
             this.zDown = false;
         else if(event.keyCode == cc.macro.KEY.x)
@@ -236,7 +264,11 @@ export default class Player extends cc.Component
     
     private playerMovement(dt) {
         this.playerSpeed = 0;
-        if(this.isDead) {
+        if(this.isPause)
+        {
+            return;
+        }
+        else if(this.isDead) {
             return;
         }
         else if(this.isBig)
@@ -342,12 +374,20 @@ export default class Player extends cc.Component
     }
     
     update(dt) {
+        //cc.log(Global);
         //cc.log(this.node.getComponent(cc.PhysicsBoxCollider).size);
         this.playerMovement(dt);
         this.camerafollow();
         this.UIfollow();
         this.UIupdate();
-        //cc.log(this.nowstate);
+
+        
+        
+        if(this.isPause&&this.pausefinish)
+        {
+            this.pause();
+            this.pausefinish=false;
+        }
         if(this.isDead&&this.deadfinish)
         {
             if(Global.lifenum>=0)
@@ -434,6 +474,15 @@ export default class Player extends cc.Component
             this.node.stopAction(this.blink);
             this.isblink=false;
         }
+
+
+
+        if(Global.pauseEnter==true&&Global.pauseCursor==false&&this.pausefinish==false&&this.isPause==true)
+        {
+            this.resume();
+        }
+
+        //cc.log(this.isPause);
     }
 
     onBeginContact(contact, self, other) {
@@ -469,6 +518,7 @@ export default class Player extends cc.Component
                 cc.log("mario hits the Life");
                 Global.lifenum++;
                 cc.audioEngine.playEffect(this.ReserveAudio,false);
+                this.show1UP();
             } else if(other.node.name == "RealCoin") {
                 cc.log("mario hits the RealCoin");
                 Global.coinnum++;
@@ -581,7 +631,7 @@ export default class Player extends cc.Component
         this.lifeText.getComponent(cc.Label).string = "" + Global.lifenum;
         this.coinText.getComponent(cc.Label).string = "" + Global.coinnum;
         this.scoreText.getComponent(cc.Label).string = (Array(7).join('0') + Global.scorenum).slice(-7);
-        this.worldText.getComponent(cc.Label).string = "" + this.nowlevel;
+        this.worldText.getComponent(cc.Label).string = "" + Global.nowlevel;
 
         if(this.finishclearflag) 
         {
@@ -788,4 +838,33 @@ export default class Player extends cc.Component
         big.getComponent('Score1000').init(this.node);
       }
 
+
+    pause()
+    {
+        this.unschedule(this.countdown);
+        cc.audioEngine.pauseMusic();
+        cc.director.getPhysicsManager().enabled=false;
+        let PuaseBox = cc.instantiate(this.PausePrefab);
+        PuaseBox.getComponent('PauseBox').init(this.node);
+    }
+
+
+
+    resume()
+    {
+        this.isPause=false;
+        cc.log("innnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn");
+        Global.pauseEnter=false;
+        this.pausefinish=true;
+        cc.audioEngine.resumeMusic();
+        cc.director.getPhysicsManager().enabled=true;
+        this.schedule(this.countdown,1);
+    }
+
+
+    show1UP()
+    {
+        let UP1Icon = cc.instantiate(this.UP1Prefab);
+        UP1Icon.getComponent('UP1Icon').init(this.node);
+    }
 }
