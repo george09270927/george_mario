@@ -18,7 +18,7 @@ export default class  extends cc.Component {
     {
         this.node.parent = node.parent; // don't mount under the player, otherwise it will change direction when player move
 
-        this.node.position = cc.v2(0, 25);
+        this.node.position = cc.v2(0, 10);
 
         this.node.position = this.node.position.addSelf(node.position);
     }
@@ -27,7 +27,7 @@ export default class  extends cc.Component {
     private UP1Move()
     {
         let moveAct = null;
-        moveAct = cc.moveBy(0.2,0,10);
+        moveAct = cc.moveBy(0.2,0,5);
         let fadeAct = cc.fadeOut(0.8);
         let UP1Act = cc.spawn(moveAct,fadeAct);
         let finishAct = cc.callFunc(()=>{this.node.destroy();});

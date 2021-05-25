@@ -7,8 +7,8 @@ export default class NewClass extends cc.Component {
 
     start() {
         Global.scorenum=0; 
-        if(Global.nowlevel==1) this.scheduleOnce(()=>{cc.director.loadScene("level1");},2.5);
-        else if(Global.nowlevel==2) this.scheduleOnce(()=>{cc.director.loadScene("level2");},2.5);
+        if(Global.nowlevel==1) this.scheduleOnce(()=>{cc.director.loadScene("level1");},1.7);
+        else if(Global.nowlevel==2) this.scheduleOnce(()=>{cc.director.loadScene("level2");},1.7);
     
       }
 

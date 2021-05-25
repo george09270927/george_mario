@@ -16,7 +16,7 @@ export default class NewClass extends cc.Component {
           username: Global.username
       }); 
         
-        this.scheduleOnce(()=>{cc.director.loadScene("Menu");},5);
+        this.scheduleOnce(()=>{cc.director.loadScene("Menu");},4);
       }
 
       onLoad() { 

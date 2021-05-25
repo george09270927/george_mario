@@ -684,10 +684,20 @@ export default class Player extends cc.Component
 
     reborn(){
         cc.audioEngine.stopMusic();
-        if(Global.lifenum<0) cc.director.loadScene("gameover");
+        if(Global.lifenum<0) {
+            Global.lifenum=0;
+            this.anim.stop();
+            this.animstate=this.anim.play("marioDead");
+            cc.director.getPhysicsManager().enabled = false;
+
+            this.unschedule(this.countdown);
+              
+            this.node.runAction(cc.sequence(cc.moveBy(1,0,20),cc.moveBy(1,0,-500)));
+
+            this.scheduleOnce(()=>{cc.director.loadScene("gameover")},1.2);
+        }
         else 
-        {
-            cc.director.loadScene("gamestart");
+        {    
             cc.audioEngine.playMusic(this.LoseOneLifeAudio,false);
             cc.log("reborn");
             this.anim.stop();
@@ -697,6 +707,8 @@ export default class Player extends cc.Component
             this.unschedule(this.countdown);
               
             this.node.runAction(cc.sequence(cc.moveBy(1,0,20),cc.moveBy(1,0,-500)));
+
+            this.scheduleOnce(()=>{cc.director.loadScene("gamestart")},1.2);
         }
         // Return to reborn position
         
