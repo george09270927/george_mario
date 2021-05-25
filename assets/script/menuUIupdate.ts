@@ -26,6 +26,9 @@ export default class NewClass extends cc.Component {
         Global.pauseUp=false;
         Global.pauseDown=false;
         Global.pauseBreak=false;
+        Global.middleflagOn = false;
+        Global.globalX = 100;
+        Global.globalY = 100;
     }
 
      onLoad () {

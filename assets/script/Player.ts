@@ -16,6 +16,9 @@ export module Global {
     export let pauseUp: boolean = false;
     export let pauseDown: boolean = false;
     export let pauseBreak: boolean = false;
+    export let globalX: number = 100;
+    export let globalY:number = 100;
+    export let middleflagOn: boolean = false;
 }
 
 
@@ -108,6 +111,9 @@ export default class Player extends cc.Component
 
     @property({type:cc.AudioClip})
     private countAudio2: cc.AudioClip=null;
+
+    @property({type:cc.AudioClip})
+    private middleflagaudio: cc.AudioClip=null;
 
     @property(cc.Prefab)
     private Score1000Prefab: cc.Prefab = null;
@@ -211,6 +217,9 @@ export default class Player extends cc.Component
 
         this.finaltimeIcon.opacity = 0;
         this.finalcrossIcon.opacity = 0;
+
+        this.node.x = Global.globalX;
+        this.node.y = Global.globalY;
       }
 
     onLoad() {
@@ -582,6 +591,13 @@ export default class Player extends cc.Component
             else if(other.node.name == "flag")
             {
                 this.isFinish=true;
+            }
+            else if(other.node.name == "middleflag"&&Global.middleflagOn==false)
+            {          
+                cc.audioEngine.playEffect(this.middleflagaudio,false);
+                Global.middleflagOn = true;
+                Global.globalX = other.node.x;
+                Global.globalY = other.node.y;
             }
             
         }
