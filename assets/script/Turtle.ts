@@ -32,7 +32,7 @@ export default class Turtle extends cc.Component {
         this.callback = function(){
             this.speed = 0 - this.speed;this.node.scaleX=-this.node.scaleX;
         }
-        this.schedule(this.callback,2+Math.random());
+        this.schedule(this.callback,4+Math.random());
     }
 
     onLoad() {
@@ -112,6 +112,31 @@ export default class Turtle extends cc.Component {
                 this.anim.stop();
                 this.anim.play("TurtleTurn");
         }
+        else if(other.node.name=="Turtle"&&other.node.getComponent("Turtle").nowstate==other.node.getComponent("Turtle").turtleState.Turn)
+        {
+            if(this.nowstate==this.turtleState.Normal)
+            {
+                this.nowstate = this.turtleState.Hitten;
+                this.speed=0;
+                this.anim.stop();
+                this.anim.play("TurtleHitten");
+                this.node.getComponent(cc.PhysicsBoxCollider).enabled = false;
+                this.node.getComponent(cc.PhysicsBoxCollider).size.height = 18;
+                this.node.getComponent(cc.PhysicsBoxCollider).offset.y = -6;
+                this.node.getComponent(cc.PhysicsBoxCollider).enabled = true;
+            }
+            else if(this.nowstate==this.turtleState.Hitten)
+            {
+                this.nowstate = this.turtleState.Turn;
+                this.unschedule(this.callback);
+                this.nowstate = this.turtleState.Turn;
+                this.speed = 300;
+                this.anim.stop();
+                this.anim.play("TurtleTurn");
+            }
+
+        }
+        
         
         else if(other.node.name == "worldrange")
         {
