@@ -2,6 +2,18 @@
 <map version="1.5" tiledversion="1.6.0" orientation="orthogonal" renderorder="right-down" width="250" height="50" tilewidth="16" tileheight="16" infinite="0" backgroundcolor="#ffffff" nextlayerid="9" nextobjectid="1">
  <tileset firstgid="1" name="tileset" tilewidth="16" tileheight="16" tilecount="1204" columns="43">
   <image source="../AS2_source/effects_UI_tiles/tileset.png" trans="ff00ff" width="688" height="450"/>
+  <tile id="0">
+   <animation>
+    <frame tileid="526" duration="100"/>
+    <frame tileid="527" duration="100"/>
+    <frame tileid="528" duration="100"/>
+    <frame tileid="529" duration="100"/>
+    <frame tileid="569" duration="100"/>
+    <frame tileid="570" duration="100"/>
+    <frame tileid="571" duration="100"/>
+    <frame tileid="572" duration="100"/>
+   </animation>
+  </tile>
  </tileset>
  <tileset firstgid="1205" name="tiles" tilewidth="16" tileheight="16" tilecount="1455" columns="97">
   <image source="../AS2_source/effects_UI_tiles/tiles.png" trans="ff00ff" width="1564" height="251"/>

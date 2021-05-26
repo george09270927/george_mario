@@ -230,7 +230,7 @@
       "__id__": 1
     },
     "asset": {
-      "__id__": 0
+      "__uuid__": "2ba7a9bb-ddb2-40a6-9892-a61e8c4c7f65"
     },
     "fileId": "f7FF4ISA9P1Z3eDHzoB17B",
     "sync": false
