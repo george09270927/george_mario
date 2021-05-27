@@ -1,3 +1,5 @@
+import { Global } from "./Player";
+
 const { ccclass, property } = cc._decorator;
 
 @ccclass
@@ -71,7 +73,7 @@ export default class Box extends cc.Component {
         this.anim.stop();
         this.anim.play("hittencoinbox");
         this.createCoin();
-        other.node.getComponent("Player").coinnum++;
+        Global.coinnum++;
         cc.log("hits coinbox");
         this.isTouched=true;
         this.createScore200();       
@@ -84,7 +86,8 @@ export default class Box extends cc.Component {
         this.node.runAction(action);
 
         this.createCoin();
-        other.node.getComponent("Player").coinnum++;
+
+        Global.coinnum++;
         this.createScore200();
         this.coinHittenNum++;  
         if(this.coinHittenNum==15)

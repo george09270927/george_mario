@@ -164,6 +164,8 @@ export default class Player extends cc.Component
 
     //private invicible: boolean = true;
     private invicible: boolean = false;
+    
+    //
 
     //private timenum: number = 300;
 
@@ -172,6 +174,8 @@ export default class Player extends cc.Component
     //private coinnum: number = 0;
 
     //public scorenum: number = 0;
+
+    //
 
     private countdown;
 

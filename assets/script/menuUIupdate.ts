@@ -29,6 +29,7 @@ export default class NewClass extends cc.Component {
         Global.middleflagOn = false;
         Global.globalX = 100;
         Global.globalY = 100;
+        Global.timenum = 300;
     }
 
      onLoad () {
@@ -55,6 +56,17 @@ export default class NewClass extends cc.Component {
         {
             Global.username = snapshot.val();
         });
+
+
+
+        /*
+        var rankRef = firebase.database().ref("rank");
+        rankRef.orderByChild("weight").limitToLast(5).once("value", function (snapshot) {
+            snapshot.forEach(function (item) {
+                console.log(item.val());
+            });
+        });
+        */
     }
 
     update () {
