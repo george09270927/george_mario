@@ -11,9 +11,14 @@ export default class NewClass extends cc.Component {
     }
 
       onLoad() { 
-        Global.scorenum=0;
-        Global.lifenum=5;
-        Global.coinnum=0;
+        var messageListRef = firebase.database().ref(""+Global.email.replace(/\./g,"_"));
+            messageListRef.set({
+                email: Global.email,
+                score: Global.scorenum ,
+                coin:  Global.coinnum,
+                life: 5,
+                username: Global.username
+            });
         cc.director.getPhysicsManager().enabled = true;       	
     }
 
